@@ -1,3 +1,44 @@
 body {
     height: 100vh;
+    margin: 0;
+    font-family: "Roboto";
+}
+
+header,
+footer {
+    height: 100px;
+    background-color: navy;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    height: 80vh;
+}
+
+h1 {
+    margin: 0;
+    color: white;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(Roboto-Regular.ttf);
+}
+
+.sidebar {
+    grid-column: 1 / 2;
+    background-color: #fee8b3;
+    color: navy;
+}
+
+.sidebarOption {
+    font-size: 32px;
+}
+
+.taskDisplay {
+    background-color: #FCF5E5;
 }
