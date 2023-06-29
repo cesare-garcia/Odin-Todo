@@ -27,7 +27,7 @@ let tasksArray = [
         dueDate: "january 21st, 2024",
         priority: "high",
         notes: "make sure to complete three days before."
-    }
+    },
 ];
 let projectArray = [];
 const allTasksTab = document.querySelector("#allTasks");
@@ -37,17 +37,21 @@ const projectsTab = document.querySelector("#projects");
 const taskDisplayBox = document.querySelector(".taskDisplay");
 
 loadAllTasks(taskDisplayBox, tasksArray);
+// while need an event listener here.
 
 allTasksTab.addEventListener("click", (e) => {
     if (taskDisplayBox.children.length > 0 ) {
         let removedElement = taskDisplayBox.firstChild;
         taskDisplayBox.removeChild(removedElement);
-        
-        // code to add inputs for a new task into an object that is added to an array
-        
-        
         // code to display the tasks in the array
         loadAllTasks(taskDisplayBox, tasksArray);
+        const addTaskButton = document.querySelector(".allTasksTop > button");
+        addTaskButton.addEventListener("click", (e) => {
+            const formContainer = document.querySelector(".formContainer");
+            formContainer.hidden = false;
+            // code that deletes the previous content 
+            // code that loads the new content
+        });
     }
 })
 
