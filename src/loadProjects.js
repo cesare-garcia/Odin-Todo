@@ -3,6 +3,7 @@ const loadProjects = (taskDisplayBox) => {
     const projectsContainer = document.createElement("div");
 
     const projectsTop = document.createElement("div");
+    projectsTop.classList.add("projectsTop");
 
     const projectsHeading = document.createElement("h2");
     projectsHeading.innerText = "Projects";
