@@ -3,6 +3,8 @@ import loadPage from './loadPage.js';
 import buildTask from './buildTask.js';
 import showHomeHeader from './showHomeHeader.js';
 import displayTasks from './displayTasks.js';
+import showTodayHeader from './showTodayHeader.js';
+import showWeekHeader from './showWeekHeader.js';
 
 let tasks = [];
 let projects = [];
@@ -124,11 +126,19 @@ homeTab.addEventListener("click", (e) => {
 });
 
 todayTab.addEventListener("click", (e) => {
-    console.log("today");
+    if ( display.children.length > 0 ) {
+        let removedElement = display.firstChild;
+        display.removeChild(removedElement);
+        showTodayHeader();
+    }
 });
 
 weekTab.addEventListener("click", (e) => {
-    console.log("week");
+    if ( display.children.length > 0 ) {
+        let removedElement = display.firstChild;
+        display.removeChild(removedElement);
+        showWeekHeader();
+    }
 });
 
 projectsTab.addEventListener("click", (e) => {
