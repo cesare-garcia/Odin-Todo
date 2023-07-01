@@ -12,28 +12,28 @@ const loadPage = (contentDiv) => {
     const sidebar = document.createElement("div");
     sidebar.classList.add("sidebar");
 
-    const allTasksOption = document.createElement("div");
-    allTasksOption.classList.add("sidebarOption");
-    allTasksOption.setAttribute("id", "allTasks");
-    allTasksOption.innerText = "All Tasks";
+    const home = document.createElement("div");
+    home.classList.add("s_Option");
+    home.setAttribute("id", "home");
+    home.innerText = "Home";
 
-    const todayOption = document.createElement("div");
-    todayOption.classList.add("sidebarOption");
-    todayOption.setAttribute("id", "today")
-    todayOption.innerText = "Today";
+    const today = document.createElement("div");
+    today.classList.add("s_Option");
+    today.setAttribute("id", "today")
+    today.innerText = "Today";
 
-    const weekOption = document.createElement("div");
-    weekOption.classList.add("sidebarOption");
-    weekOption.setAttribute("id", "week");
-    weekOption.innerText = "Week";
+    const week = document.createElement("div");
+    week.classList.add("s_Option");
+    week.setAttribute("id", "week");
+    week.innerText = "Week";
 
-    const projectsOption = document.createElement("div");
-    projectsOption.classList.add("sidebarOption");
-    projectsOption.setAttribute("id", "projects");
-    projectsOption.innerText = "Projects";
+    const projects = document.createElement("div");
+    projects.classList.add("s_Option");
+    projects.setAttribute("id", "projects");
+    projects.innerText = "Projects";
 
-    const taskDisplay = document.createElement("div");
-    taskDisplay.classList.add("taskDisplay");
+    const display = document.createElement("div");
+    display.classList.add("display");
 
     const footer = document.createElement("footer");
 
@@ -42,14 +42,13 @@ const loadPage = (contentDiv) => {
 
     contentDiv.appendChild(main);
     main.appendChild(sidebar);
-    sidebar.appendChild(allTasksOption);
-    sidebar.appendChild(todayOption);
-    sidebar.appendChild(weekOption);
-    sidebar.appendChild(projectsOption);
-    main.appendChild(taskDisplay);
+    sidebar.appendChild(home);
+    sidebar.appendChild(today);
+    sidebar.appendChild(week);
+    sidebar.appendChild(projects);
+    main.appendChild(display);
 
     contentDiv.appendChild(footer);
-
 };
 
 export default loadPage;
