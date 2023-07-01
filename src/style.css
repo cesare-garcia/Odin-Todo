@@ -24,6 +24,15 @@ h1 {
     color: white;
 }
 
+form {
+    display: grid;
+    grid-template-columns: repeat(3,1fr) ;
+    grid-template-rows: 40px 40px 100px;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 10px;
+}
+
 @font-face {
     font-family: "Roboto";
     src: url(Roboto-Regular.ttf);
@@ -35,7 +44,7 @@ h1 {
     color: navy;
 }
 
-.sidebarOption {
+.s_Option {
     font-size: 32px;
 }
 
@@ -43,15 +52,37 @@ h1 {
     background-color: red;
 }
 
-.taskDisplay {
+.display {
     background-color: #FCF5E5;
 }
 
-.allTasksTop {
+.at_topHalf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleAndButton {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
+}
+
+.descriptionDiv {
+    grid-row: 3/4;
+    grid-column: 1/2;
+}
+
+.notesDiv {
+    grid-row: 3/4;
+    grid-column: 2/3;
+}
+
+.submitTask {
+    grid-row: 3/4;
+    grid-column: 3/4;
 }
 
 .taskContainer {
@@ -60,15 +91,16 @@ h1 {
     background-color: white;
 }
 
-.taskTop {
+.completedTask {
+    text-decoration: line-through;
+}
+
+.tcTop {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 5px;
 }
 
-.projectsTop {
+.tcBottom {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
 }
