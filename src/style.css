@@ -56,6 +56,12 @@ form {
     background-color: #FCF5E5;
 }
 
+.homeHeader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 .at_topHalf {
     display: flex;
     flex-direction: column;
