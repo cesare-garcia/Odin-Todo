@@ -150,6 +150,9 @@ weekTab.addEventListener("click", (e) => {
         let removedElement = display.firstChild;
         display.removeChild(removedElement);
         showWeekHeader();
+        const week = document.querySelector(".weekDisplay");
+        let weeksTasks = displayTodaysTasks(tasks);
+        week.appendChild(weeksTasks);
     }
 });
 
