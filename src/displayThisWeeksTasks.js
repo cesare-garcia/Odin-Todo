@@ -1,22 +1,28 @@
-const displayThisWeeksTasks = (tasksArray) => {
+const displayThisWeeksTasks = (tasksArray, intervalFunction, addDayFunction) => {
 
     let taskList = document.createElement("div");
     taskList.classList.add(".taskList");
 
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    if ( month < 10 ) {
-        month = `0${date.getMonth()+1}`;
-    }
-    let day = date.getDate();
-    if ( day < 10 ) {
-        day = `0${date.getDate()}`;
-    }
-    
+    let currentDate = new Date();
+    let datePlus7 = addDayFunction(currentDate, 7);
 
     for ( let i = 0; i < tasksArray.length; i++ ) {
-        if ( tasksArray[i].taskDueDate == dateString) {
+
+        let recordedDate = tasksArray[i].taskDueDate;
+        console.log(recordedDate);
+
+        let dateArray = recordedDate.split("-");
+        let yearDigits = parseInt(dateArray[0]);
+        let monthDigits = parseInt(dateArray[1]);
+        monthDigits = monthDigits - 1;
+        let dayDigits = parseInt(dateArray[2]);
+
+        let convertedDate = intervalFunction(new Date(yearDigits, monthDigits, dayDigits), {
+            start: currentDate,
+            end: datePlus7
+        });
+
+        if ( convertedDate ) {
             let taskContainer = document.createElement("div");
             taskContainer.classList.add("taskContainer");
             let tcTop = document.createElement("div");
