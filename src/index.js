@@ -4,6 +4,7 @@ import buildTask from './buildTask.js';
 import showHomeHeader from './showHomeHeader.js';
 import displayTasks from './displayTasks.js';
 import showTodayHeader from './showTodayHeader.js';
+import displayTodaysTasks from './displayTodaysTasks.js';
 import showWeekHeader from './showWeekHeader.js';
 
 let tasks = [];
@@ -21,6 +22,9 @@ showHomeHeader();
 const addTaskButton = document.querySelector(".addTask");
 const submit = document.querySelector(".submitTask");
 const form = document.querySelector("#ntForm");
+const home = document.querySelector(".home");
+let taskVisual = displayTasks(tasks);
+home.appendChild(taskVisual);
 
 addTaskButton.addEventListener("click", (e) => {
     form.style.display = "grid";
@@ -46,13 +50,14 @@ submit.addEventListener("click", (e) => {
     let taskDescription = document.querySelector("#desc_ta").value.toUpperCase();
     let taskNotes = document.querySelector("#notes_ta").value.toUpperCase();
 
-    if ( taskName == "" && taskDueDate == "" ) {
+    if ( taskName == "" || taskDueDate == "" ) {
         alert("You must enter a name and due date for this task.")
     } else {
         let newTask = buildTask(projectName, taskStatus, taskName, taskPriority, taskDueDate, taskDescription, taskNotes);
         tasks.push(newTask);
         form.reset();
         form.style.display = "none";
+        console.log(tasks);
         
         if ( document.querySelector(".taskList") == null ) {
             let taskVisual = displayTasks(tasks);
@@ -77,6 +82,9 @@ homeTab.addEventListener("click", (e) => {
         const addTaskButton = document.querySelector(".addTask");
         const submit = document.querySelector(".submitTask");
         const form = document.querySelector("#ntForm");
+
+        let taskVisual = displayTasks(tasks);
+        home.appendChild(taskVisual);
     
         addTaskButton.addEventListener("click", (e) => {
             form.style.display = "grid";
@@ -130,6 +138,10 @@ todayTab.addEventListener("click", (e) => {
         let removedElement = display.firstChild;
         display.removeChild(removedElement);
         showTodayHeader();
+        const today = document.querySelector(".todayDisplay");
+        let todaysTasks = displayTodaysTasks(tasks);
+        console.log(todaysTasks);
+        today.appendChild(todaysTasks);
     }
 });
 
