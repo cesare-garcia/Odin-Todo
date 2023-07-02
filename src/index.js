@@ -6,6 +6,9 @@ import displayTasks from './displayTasks.js';
 import showTodayHeader from './showTodayHeader.js';
 import displayTodaysTasks from './displayTodaysTasks.js';
 import showWeekHeader from './showWeekHeader.js';
+import isWithinInterval from 'date-fns/isWithinInterval';
+import addDays from 'date-fns/addDays';
+import displayThisWeeksTasks from './displayThisWeeksTasks.js';
 
 let tasks = [];
 let projects = [];
@@ -151,7 +154,7 @@ weekTab.addEventListener("click", (e) => {
         display.removeChild(removedElement);
         showWeekHeader();
         const week = document.querySelector(".weekDisplay");
-        let weeksTasks = displayTodaysTasks(tasks);
+        let weeksTasks = displayThisWeeksTasks(tasks, isWithinInterval, addDays);
         week.appendChild(weeksTasks);
     }
 });
