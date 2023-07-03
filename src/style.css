@@ -125,3 +125,8 @@ form {
 .tcBottom {
     display: flex;
 }
+
+.addProject {
+    height: 50px;
+    width: 50px;
+}
