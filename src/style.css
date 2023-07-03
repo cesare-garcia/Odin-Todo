@@ -130,3 +130,24 @@ form {
     height: 50px;
     width: 50px;
 }
+
+.projectContainer {
+    height: 40px;
+}
+
+.projectContainer:hover {
+    background-color: green;
+}
+
+.projectHeader {
+    display: flex;
+    align-items: center;
+    height: inherit;
+    width: inherit;
+}
+
+.projectTitle {
+    size: 20px;
+    margin: 0;
+    width: 100px;
+}
