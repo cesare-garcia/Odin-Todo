@@ -32,6 +32,32 @@ const loadPage = (contentDiv) => {
     projects.setAttribute("id", "projects");
     projects.innerText = "Projects";
 
+    const newProjectsButton = document.createElement("button");
+    newProjectsButton.classList.add("addProject");
+    newProjectsButton.innerText = "+";
+
+    const newProjectsForm = document.createElement("form");
+    newProjectsForm.setAttribute("id", "npForm");
+    newProjectsForm.style.display = "none";
+
+    const newProjectDiv = document.createElement("div");
+    newProjectDiv.classList.add(".npDiv");
+
+    const newProjectLabel = document.createElement("label");
+    newProjectLabel.setAttribute("for", "np_input")
+    newProjectLabel.innerText = "New Project Name: ";
+
+    const newProjectInput = document.createElement("input");
+    newProjectInput.setAttribute("id", "np_input");
+    newProjectInput.setAttribute("name", "np_input");
+
+    const newProjectSubmission = document.createElement("button");
+    newProjectSubmission.classList.add("npButton");
+    newProjectSubmission.innerText = "Add Project";
+
+    const newProjectsSidebarDisplay = document.createElement("div");
+    newProjectsSidebarDisplay.classList.add("npsd");
+
     const display = document.createElement("div");
     display.classList.add("display");
 
@@ -46,6 +72,13 @@ const loadPage = (contentDiv) => {
     sidebar.appendChild(today);
     sidebar.appendChild(week);
     sidebar.appendChild(projects);
+    projects.appendChild(newProjectsButton);
+    projects.appendChild(newProjectsForm);
+    newProjectsForm.appendChild(newProjectDiv);
+    newProjectDiv.appendChild(newProjectLabel);
+    newProjectDiv.appendChild(newProjectInput);
+    newProjectDiv.appendChild(newProjectSubmission);
+    projects.appendChild(newProjectsSidebarDisplay);
     main.appendChild(display);
 
     contentDiv.appendChild(footer);
