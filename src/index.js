@@ -60,7 +60,6 @@ submit.addEventListener("click", (e) => {
         tasks.push(newTask);
         form.reset();
         form.style.display = "none";
-        console.log(tasks);
         
         if ( document.querySelector(".taskList") == null ) {
             let taskVisual = displayTasks(tasks);
@@ -73,6 +72,30 @@ submit.addEventListener("click", (e) => {
             home.appendChild(taskVisual);
         }
     }
+
+    const deleteButtons = document.querySelectorAll(".deleteButton");
+    deleteButtons.forEach(e => e.addEventListener("click", (e) => {
+        if (e.target) {
+            let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+            console.log(targetButtonIndex);
+            let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+            console.log(removedTaskContainer);
+            let selectedTaskList = document.querySelector(".taskList");
+            selectedTaskList.removeChild(removedTaskContainer);
+            tasks.splice(targetButtonIndex, 1);
+            console.log(tasks);
+
+            let remainingTasks = document.querySelectorAll(".taskContainer");
+            let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+            let remainingEditButtons = document.querySelectorAll(".editButton");
+
+            for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+            }
+        }
+    }));
 });
 
 homeTab.addEventListener("click", (e) => {
@@ -132,8 +155,30 @@ homeTab.addEventListener("click", (e) => {
                     home.appendChild(taskVisual);
                 }
             }
+
+            const deleteButtons = document.querySelectorAll(".deleteButton");
+            deleteButtons.forEach(e => e.addEventListener("click", (e) => {
+                if (e.target) {
+                    let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                    let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                    let selectedTaskList = document.querySelector(".taskList");
+                    selectedTaskList.removeChild(removedTaskContainer);
+                    tasks.splice(targetButtonIndex, 1);
+                    console.log(tasks);
+        
+                    let remainingTasks = document.querySelectorAll(".taskContainer");
+                    let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                    let remainingEditButtons = document.querySelectorAll(".editButton");
+        
+                    for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                        remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                        remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                        remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                    }
+                }
+            }));        
         });
-    }
+    };
 });
 
 todayTab.addEventListener("click", (e) => {
@@ -143,8 +188,31 @@ todayTab.addEventListener("click", (e) => {
         showTodayHeader();
         const today = document.querySelector(".todayDisplay");
         let todaysTasks = displayTodaysTasks(tasks);
-        console.log(todaysTasks);
         today.appendChild(todaysTasks);
+        let todaySelectedList = document.querySelector(".todayTaskList");
+
+        const deleteButtons = document.querySelectorAll(".deleteButton");
+        console.log(deleteButtons);
+        deleteButtons.forEach(e => e.addEventListener("click", (e) => {
+            if (e.target) {
+                let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                todaySelectedList.removeChild(removedTaskContainer)
+                tasks.splice(targetButtonIndex, 1);
+                console.log(tasks);
+    
+                let remainingTasks = document.querySelectorAll(".taskContainer");
+                let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                let remainingEditButtons = document.querySelectorAll(".editButton");
+    
+                for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                    remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                    remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                    remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                }
+            }
+        }));
+    
     }
 });
 
@@ -156,6 +224,30 @@ weekTab.addEventListener("click", (e) => {
         const week = document.querySelector(".weekDisplay");
         let weeksTasks = displayThisWeeksTasks(tasks, isWithinInterval, addDays);
         week.appendChild(weeksTasks);
+        let weekSelectedList = document.querySelector(".weekTaskList");
+
+        const deleteButtons = document.querySelectorAll(".deleteButton");
+        console.log(deleteButtons);
+        deleteButtons.forEach(e => e.addEventListener("click", (e) => {
+            if (e.target) {
+                let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                weekSelectedList.removeChild(removedTaskContainer)
+                tasks.splice(targetButtonIndex, 1);
+                console.log(tasks);
+    
+                let remainingTasks = document.querySelectorAll(".taskContainer");
+                let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                let remainingEditButtons = document.querySelectorAll(".editButton");
+    
+                for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                    remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                    remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                    remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                }
+            }
+        }));
+
     }
 });
 
