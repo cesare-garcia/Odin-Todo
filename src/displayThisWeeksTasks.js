@@ -31,11 +31,13 @@ const displayThisWeeksTasks = (tasksArray, intervalFunction, addDayFunction) => 
             let tcProjectDiv = document.createElement("div");
             tcProjectDiv.classList.add("tcProjectDiv");
             tcProjectDiv.innerText = `${tasksArray[i].projectName}`;
+            tcProjectDiv.setAttribute("data-taskNumber", `${i}`);
             let tcStatusDiv = document.createElement("div");
             tcStatusDiv.classList.add("tcStatusDiv");
             let tcCheckBox = document.createElement("input");
             tcCheckBox.classList.add("taskCheck");
             tcCheckBox.setAttribute("type", "checkbox");
+            tcCheckBox.setAttribute("data-taskNumber", `${i}`);
             if ( `${tasksArray[i].taskStatus}` == "COMPLETE" ) {
                 tcCheckBox.checked = true;
                 taskContainer.classList.add("completedTask");
@@ -48,12 +50,15 @@ const displayThisWeeksTasks = (tasksArray, intervalFunction, addDayFunction) => 
             let tcNameDiv = document.createElement("div");
             tcNameDiv.classList.add("tcNameDiv");
             tcNameDiv.innerText = `${tasksArray[i].taskName}`;
+            tcNameDiv.setAttribute("data-taskNumber", `${i}`);
             let tcPriorityDiv = document.createElement("div");
             tcPriorityDiv.classList.add("tcPriorityDiv");
             tcPriorityDiv.innerText = `${tasksArray[i].taskPriority}`;
+            tcPriorityDiv.setAttribute("data-taskNumber", `${i}`);
             let tcDueDiv = document.createElement("div");
             tcDueDiv.classList.add("tcDueDiv");
             tcDueDiv.innerText = `${tasksArray[i].taskDueDate}`;
+            tcDueDiv.setAttribute("data-taskNumber", `${i}`);
             let tcButtonsDiv = document.createElement("div");
             tcButtonsDiv.classList.add("tcButtonsDiv");
             let editButton = document.createElement("button");
@@ -69,9 +74,11 @@ const displayThisWeeksTasks = (tasksArray, intervalFunction, addDayFunction) => 
             let tcDescDiv = document.createElement("div");
             tcDescDiv.classList.add("tcDescDiv");
             tcDescDiv.innerText = `${tasksArray[i].taskDescription}`;
+            tcDescDiv.setAttribute("data-taskNumber", `${i}`);
             let tcNotesDiv = document.createElement("div");
             tcNotesDiv.classList.add("tcNotesDiv");
             tcNotesDiv.innerText = `${tasksArray[i].taskNotes}`;
+            tcNotesDiv.setAttribute("data-taskNumber", `${i}`);
 
             taskList.appendChild(taskContainer);
             taskContainer.appendChild(tcTop);
