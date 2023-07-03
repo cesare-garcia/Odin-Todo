@@ -13,10 +13,12 @@ const showProjectSidebar = (projectsArray) => {
     
         const projectHeader = document.createElement("div");
         projectHeader.classList.add("projectHeader");
-    
+        projectHeader.setAttribute(`data-projectNumber`, `${i}`);
+
         const projectTitle = document.createElement("h2");
         projectTitle.classList.add("projectTitle");
         projectTitle.innerText = projectsArray[i];
+        projectTitle.setAttribute(`data-projectNumber`, `${i}`);
 
         const deleteProjectButton = document.createElement("button");
         deleteProjectButton.classList.add("deleteProject");
