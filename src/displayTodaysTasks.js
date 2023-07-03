@@ -1,7 +1,7 @@
 const displayTodaysTasks = (tasksArray) => {
 
     let taskList = document.createElement("div");
-    taskList.classList.add(".taskList");
+    taskList.classList.add("todayTaskList");
 
     let date = new Date();
     let year = date.getFullYear();
@@ -19,6 +19,7 @@ const displayTodaysTasks = (tasksArray) => {
         if ( tasksArray[i].taskDueDate == dateString) {
             let taskContainer = document.createElement("div");
             taskContainer.classList.add("taskContainer");
+            taskContainer.setAttribute("data-taskNumber", `${i}`);
             let tcTop = document.createElement("div");
             tcTop.classList.add("tcTop");
             let tcProjectDiv = document.createElement("div");
@@ -51,8 +52,12 @@ const displayTodaysTasks = (tasksArray) => {
             tcButtonsDiv.classList.add("tcButtonsDiv");
             let editButton = document.createElement("button");
             editButton.classList.add("editButton");
+            editButton.setAttribute("data-taskNumber", `${i}`);
+            editButton.innerText = "Edit";    
             let deleteButton = document.createElement("button");
             deleteButton.classList.add("deleteButton");
+            deleteButton.setAttribute("data-taskNumber", `${i}`);
+            deleteButton.innerText = "Delete";    
             let tcBottom = document.createElement("div");
             tcBottom.classList.add("tcBottom");
             let tcDescDiv = document.createElement("div");

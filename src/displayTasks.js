@@ -6,6 +6,7 @@ const displayTasks = (tasksArray) => {
     for (let i = 0; i < tasksArray.length; i++ ) {
         let taskContainer = document.createElement("div");
         taskContainer.classList.add("taskContainer");
+        taskContainer.setAttribute("data-taskNumber", `${i}`);
         let tcTop = document.createElement("div");
         tcTop.classList.add("tcTop");
         let tcProjectDiv = document.createElement("div");
@@ -38,8 +39,12 @@ const displayTasks = (tasksArray) => {
         tcButtonsDiv.classList.add("tcButtonsDiv");
         let editButton = document.createElement("button");
         editButton.classList.add("editButton");
+        editButton.setAttribute("data-taskNumber", `${i}`);
+        editButton.innerText = "Edit";
         let deleteButton = document.createElement("button");
         deleteButton.classList.add("deleteButton");
+        deleteButton.setAttribute("data-taskNumber", `${i}`);
+        deleteButton.innerText = "Delete";
         let tcBottom = document.createElement("div");
         tcBottom.classList.add("tcBottom");
         let tcDescDiv = document.createElement("div");
