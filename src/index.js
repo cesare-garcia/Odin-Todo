@@ -10,6 +10,7 @@ import isWithinInterval from 'date-fns/isWithinInterval';
 import addDays from 'date-fns/addDays';
 import displayThisWeeksTasks from './displayThisWeeksTasks.js';
 import showProjectSidebar from './showProjectSidebar.js';
+import showProjectHeader from './showProjectHeader.js';
 
 let tasks = [];
 let projects = [];
@@ -32,6 +33,8 @@ home.appendChild(taskVisual);
 addTaskButton.addEventListener("click", (e) => {
     form.style.display = "grid";
 });
+
+// code that adds event listeners to delete and edit buttons if there are already things loaded.
 
 submit.addEventListener("click", (e) => {
     e.preventDefault();
@@ -72,6 +75,16 @@ submit.addEventListener("click", (e) => {
             home.appendChild(taskVisual);
         }
     }
+
+    // const editButtons = document.querySelectorAll(".editButton");
+    // editButtons.forEach(e => e.addEventListener("click", (e) => {
+    //     if (e.target) {
+    //         let editButtonIndex = e.target.getAttribute("data-taskNumber");
+            
+                
+                
+    //     }
+    // })); 
 
     const deleteButtons = document.querySelectorAll(".deleteButton");
     deleteButtons.forEach(e => e.addEventListener("click", (e) => {
@@ -268,7 +281,6 @@ projectSubmissionButton.addEventListener("click", (e) => {
     if (projectName != "" ) {
         projects.push(projectName);
         newProjectsForm.reset();
-        console.log(projects);
         newProjectsForm.style.display = "none";
         if ( npsd.children.length > 0 ) {
             let removedBox = npsd.firstChild;
@@ -282,25 +294,75 @@ projectSubmissionButton.addEventListener("click", (e) => {
         alert("Project must have a name.");
     }
 
+    //this is the add project button
+    let apBox = document.querySelector(".apBox");
+    if ( apBox.children.length > 0 ) {
+        const projectList = document.querySelectorAll(".projectTitle");
+        projectList.forEach(e => e.addEventListener("click", (e) => {
+            if (display.children.length > 0 ) {
+                let removedStuff = display.firstChild;
+                display.removeChild(removedStuff);
+                let projectIndex = e.target.getAttribute("data-projectNumber");
+                showProjectHeader(display, projects, projectIndex);
+                // display tasks
+                // add eventlistener to addtask button
+            }
+        }));
+    };
+    
+    // there will need to be code that prevents an undefined page from showing.
+    // there needs to be code that updates the showProjectHeader and Display ProjectTasks functions
     const deleteProjects = document.querySelectorAll(".deleteProject");
-    // console.log(deleteProjects);
     deleteProjects.forEach( e => e.addEventListener("click", (e) => {
         if (e.target) {
+            console.log(e.target);
             let projectIndex = e.target.getAttribute("data-projectNumber");
             let removedProject = document.querySelector(`.projectContainer[data-projectNumber="${projectIndex}"]`);
-            
             let apBox = document.querySelector(".apBox");
             apBox.removeChild(removedProject);
             projects.splice(projectIndex, 1);
 
-            let remainingProjects = document.querySelectorAll(".projectContainer");
-            let remainingProjectDeletes = document.querySelectorAll(".deleteProject");
+            if ( projects.length == 0 ) {
+                let removedProjectHeader = display.firstChild;
+                console.log(removedProjectHeader);
+                display.removeChild(removedProjectHeader);
+                showProjectHeader(display, projects, projectIndex);
+            } else if ( projects.length > 0 && projectIndex == 0 ) {
+                let removedProjectHeader = display.firstChild;
+                console.log(removedProjectHeader);
+                display.removeChild(removedProjectHeader);
+                showProjectHeader(display, projects, projectIndex);
+                let spName = document.querySelector(".spName");
+                spName.innerText = "Please add or select a project in the sidebar.";
+                let remainingProjects = document.querySelectorAll(".projectContainer");
+                let remainingProjectDeletes = document.querySelectorAll(".deleteProject");
+                let remainingProjectHeaders = document.querySelectorAll(".projectHeader");
+                let remainingProjectTitles = document.querySelectorAll(".projectTitle");
 
-            for (let i = 0; i < projects.length; i++ ) {
-                remainingProjects[i].setAttribute("data-projectNumber", i);
-                remainingProjectDeletes[i].setAttribute("data-projectNumber", i);
+    
+                for (let i = 0; i < projects.length; i++ ) {
+                    remainingProjects[i].setAttribute("data-projectNumber", i);
+                    remainingProjectDeletes[i].setAttribute("data-projectNumber", i);
+                    remainingProjectHeaders[i].setAttribute("data-projectNumber", i);
+                    remainingProjectTitles[i].setAttribute("data-projectNumber", i);
+
+                }
+            } else {
+                let removedProjectHeader = display.firstChild;
+                display.removeChild(removedProjectHeader);
+                showProjectHeader(display, projects, `${projectIndex-1}`);
+                let remainingProjects = document.querySelectorAll(".projectContainer");
+                let remainingProjectDeletes = document.querySelectorAll(".deleteProject");
+                let remainingProjectHeaders = document.querySelectorAll(".projectHeader");
+                let remainingProjectTitles = document.querySelectorAll(".projectTitle");
+    
+                for (let i = 0; i < projects.length; i++ ) {
+                    remainingProjects[i].setAttribute("data-projectNumber", i);
+                    remainingProjectDeletes[i].setAttribute("data-projectNumber", i);
+                    remainingProjectHeaders[i].setAttribute("data-projectNumber", i);
+                    remainingProjectTitles[i].setAttribute("data-projectNumber", i);
+                }
             }
-
         }
     }));
 
