@@ -9,6 +9,7 @@ import showWeekHeader from './showWeekHeader.js';
 import isWithinInterval from 'date-fns/isWithinInterval';
 import addDays from 'date-fns/addDays';
 import displayThisWeeksTasks from './displayThisWeeksTasks.js';
+import showProjectSidebar from './showProjectSidebar.js';
 
 let tasks = [];
 let projects = [];
@@ -19,7 +20,6 @@ const display = document.querySelector(".display");
 const homeTab = document.querySelector("#home");
 const todayTab = document.querySelector("#today");
 const weekTab = document.querySelector("#week");
-const projectsTab = document.querySelector("#projects");
 
 showHomeHeader();
 const addTaskButton = document.querySelector(".addTask");
@@ -251,6 +251,58 @@ weekTab.addEventListener("click", (e) => {
     }
 });
 
-projectsTab.addEventListener("click", (e) => {
-    console.log("projects");
+// there needs to be code that displays already created projects if they're in the projects array.
+
+const newProjectButton = document.querySelector(".addProject");
+const newProjectsForm = document.querySelector("#npForm");
+const npsd = document.querySelector(".npsd");
+
+newProjectButton.addEventListener("click", (e) => {
+    newProjectsForm.style.display = "block";
+});
+
+const projectSubmissionButton = document.querySelector(".npButton");
+projectSubmissionButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    let projectName = document.querySelector("#np_input").value;
+    if (projectName != "" ) {
+        projects.push(projectName);
+        newProjectsForm.reset();
+        console.log(projects);
+        newProjectsForm.style.display = "none";
+        if ( npsd.children.length > 0 ) {
+            let removedBox = npsd.firstChild;
+            npsd.removeChild(removedBox);
+            showProjectSidebar(projects);
+
+        } else {
+            showProjectSidebar(projects);        
+        }
+    } else {
+        alert("Project must have a name.");
+    }
+
+    const deleteProjects = document.querySelectorAll(".deleteProject");
+    // console.log(deleteProjects);
+    deleteProjects.forEach( e => e.addEventListener("click", (e) => {
+        if (e.target) {
+            let projectIndex = e.target.getAttribute("data-projectNumber");
+            let removedProject = document.querySelector(`.projectContainer[data-projectNumber="${projectIndex}"]`);
+            
+            let apBox = document.querySelector(".apBox");
+            apBox.removeChild(removedProject);
+            projects.splice(projectIndex, 1);
+
+            let remainingProjects = document.querySelectorAll(".projectContainer");
+            let remainingProjectDeletes = document.querySelectorAll(".deleteProject");
+
+            for (let i = 0; i < projects.length; i++ ) {
+                remainingProjects[i].setAttribute("data-projectNumber", i);
+                remainingProjectDeletes[i].setAttribute("data-projectNumber", i);
+            }
+
+        }
+    }));
+
+
 });
