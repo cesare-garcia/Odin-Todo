@@ -4,7 +4,6 @@ const showProjectSidebar = (projectsArray) => {
     const allProjectsBox = document.createElement("div");
     allProjectsBox.classList.add('apBox');
     npsd.appendChild(allProjectsBox);
-    console.log(npsd);
 
     for ( let i = 0; i < projectsArray.length; i++ ) {
         const project = document.createElement("div");
