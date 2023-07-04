@@ -76,18 +76,21 @@ form {
     gap: 20px;
 }
 
-.descriptionDiv {
+.descriptionDiv,
+.editDescriptionDiv {
     grid-row: 3/4;
     grid-column: 1/2;
 }
 
-.notesDiv {
+.notesDiv,
+.editNotesDiv {
     grid-row: 3/4;
     grid-column: 2/3;
 }
 
 .submitTask,
-.ptsubmitTask {
+.ptsubmitTask,
+.editSubmitTask {
     grid-row: 3/4;
     grid-column: 3/4;
 }
