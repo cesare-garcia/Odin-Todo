@@ -32,79 +32,79 @@ const home = document.querySelector(".home");
 let taskVisual = displayTasks(tasks);
 home.appendChild(taskVisual);
 
-// code that adds event listeners to delete and edit buttons if there are already things loaded.
+const taskContainers = document.querySelectorAll(".taskContainer");
+taskContainers.forEach(element => {
+    let elementIndex = element.getAttribute("data-taskNumber");
+    
+    let deletButton = document.querySelector(`.deleteButton[data-taskNumber="${elementIndex}"]`);
+    deletButton.addEventListener("click", (e) => {
+        if (e.target) {
+            let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+            let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+            let selectedTaskList = document.querySelector(".taskList");
+            selectedTaskList.removeChild(removedTaskContainer);
+            tasks.splice(targetButtonIndex, 1);
 
-const editButtons = document.querySelectorAll(".editButton");
-editButtons.forEach(e => e.addEventListener("click", (e) => {
-    if (e.target) {
-        editForm.style.display = "grid";
-        let editButtonIndex = e.target.getAttribute("data-taskNumber");
-        let editSubmission = document.querySelector(".editSubmitTask");
-        editSubmission.addEventListener("click", (e) => {
-            e.preventDefault();
-            let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
-            if ( editProjectName == "" ) {
-                editProjectName = "Not assigned to project.";
-            }
-            let editTaskStatus = document.querySelector("#editS_input");
-            if (editTaskStatus.checked == true ) {
-                editTaskStatus = "COMPLETE";
-            } else {
-                editTaskStatus = "INCOMPLETE";
-            }
-            let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
-            let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
-            let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
-            let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
-            let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
-        
-            if ( taskName == "" || taskDueDate == "" ) {
-                alert("Name and Due Date cannot remain blank.")
-            } else {
-                tasks[editButtonIndex].projectName = editProjectName;
-                tasks[editButtonIndex].taskStatus = editTaskStatus;
-                tasks[editButtonIndex].taskName = editTaskName;
-                tasks[editButtonIndex].taskPriority = editTaskPriority;
-                tasks[editButtonIndex].taskDueDate = editTaskDueDate;
-                tasks[editButtonIndex].taskDescription = editTaskDescription;
-                tasks[editButtonIndex].taskNotes = editTaskNotes;
-                console.log(tasks[editButtonIndex]);
-                
-                let oldTaskList = document.querySelector(".taskList");
-                let newTaskList = displayTasks(tasks);
-                home.removeChild(oldTaskList);
-                home.appendChild(newTaskList);
+            let remainingTasks = document.querySelectorAll(".taskContainer");
+            let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+            let remainingEditButtons = document.querySelectorAll(".editButton");
 
-                editForm.reset();
-                editForm.style.display = "none";
-            }
-        });     
-    }
-})); 
+            for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+            };
+        };
+    });
 
-const deleteButtons = document.querySelectorAll(".deleteButton");
-deleteButtons.forEach(e => e.addEventListener("click", (e) => {
-    if (e.target) {
-        let targetButtonIndex = e.target.getAttribute("data-taskNumber");
-        console.log(targetButtonIndex);
-        let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
-        console.log(removedTaskContainer);
-        let selectedTaskList = document.querySelector(".taskList");
-        selectedTaskList.removeChild(removedTaskContainer);
-        tasks.splice(targetButtonIndex, 1);
-        console.log(tasks);
+    let eButton = document.querySelector(`.editButton[data-taskNumber="${elementIndex}"]`);
+    eButton.addEventListener("click", (e) => {
+        if (e.target) {
+            eButton.disabled = true;
+            console.log("hey");
+            editForm.style.display = "grid";
+            let editButtonIndex = e.target.getAttribute("data-taskNumber");
+            let editSubmission = document.querySelector(".editSubmitTask");
+            editSubmission.addEventListener("click", (e) => {
+                e.preventDefault();
+                let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
+                if ( editProjectName == "" ) {
+                    editProjectName = "Not assigned to project.";
+                }
+                let editTaskStatus = document.querySelector("#editS_input");
+                if (editTaskStatus.checked == true ) {
+                    editTaskStatus = "COMPLETE";
+                } else {
+                    editTaskStatus = "INCOMPLETE";
+                }
+                let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
+                let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
+                let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
+                let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
+                let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
+            
+                if ( editTaskName == "" || editTaskDueDate == "" ) {
+                    alert("Name and Due Date cannot remain blank.")
+                } else {
+                    tasks[editButtonIndex].projectName = editProjectName;
+                    tasks[editButtonIndex].taskStatus = editTaskStatus;
+                    tasks[editButtonIndex].taskName = editTaskName;
+                    tasks[editButtonIndex].taskPriority = editTaskPriority;
+                    tasks[editButtonIndex].taskDueDate = editTaskDueDate;
+                    tasks[editButtonIndex].taskDescription = editTaskDescription;
+                    tasks[editButtonIndex].taskNotes = editTaskNotes;
+                    console.log(tasks[editButtonIndex]);
+                    console.log(tasks);
+                    
+                    // code that changes the innertexts of the boxes;
 
-        let remainingTasks = document.querySelectorAll(".taskContainer");
-        let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
-        let remainingEditButtons = document.querySelectorAll(".editButton");
-
-        for ( let i = 0; i < remainingTasks.length; i ++ ) {
-            remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
-            remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
-            remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
-        }
-    }
-}));
+                    editForm.reset();
+                    editForm.style.display = "none";
+                };
+            });     
+        };
+    });
+});
 
 addTaskButton.addEventListener("click", (e) => {
     form.style.display = "grid";
@@ -112,8 +112,7 @@ addTaskButton.addEventListener("click", (e) => {
 
 submit.addEventListener("click", (e) => {
     e.preventDefault();
-
-    const home = document.querySelector(".home");
+    console.log("in primary submission");
     let projectName = document.querySelector("#p_input").value.toUpperCase();
     if ( projectName == "" ) {
         projectName = "Not assigned to project.";
@@ -141,85 +140,162 @@ submit.addEventListener("click", (e) => {
         if ( document.querySelector(".taskList") == null ) {
             let taskVisual = displayTasks(tasks);
             home.appendChild(taskVisual);
+
+            const taskContainers = document.querySelectorAll(".taskContainer");
+            taskContainers.forEach(element => {
+                let elementIndex = element.getAttribute("data-taskNumber");
+                
+                let deletButton = document.querySelector(`.deleteButton[data-taskNumber="${elementIndex}"]`);
+                deletButton.addEventListener("click", (e) => {
+                    if (e.target) {
+                        let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                        let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                        let selectedTaskList = document.querySelector(".taskList");
+                        selectedTaskList.removeChild(removedTaskContainer);
+                        tasks.splice(targetButtonIndex, 1);
+            
+                        let remainingTasks = document.querySelectorAll(".taskContainer");
+                        let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                        let remainingEditButtons = document.querySelectorAll(".editButton");
+            
+                        for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                            remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                            remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                            remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                        };
+                    };
+                });
+            
+                let eButton = document.querySelector(`.editButton[data-taskNumber="${elementIndex}"]`);
+                eButton.addEventListener("click", (e) => {
+                    if (e.target) {
+                        eButton.disabled = true;
+                        console.log("hey");
+                        editForm.style.display = "grid";
+                        let editButtonIndex = e.target.getAttribute("data-taskNumber");
+                        let editSubmission = document.querySelector(".editSubmitTask");
+                        editSubmission.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
+                            if ( editProjectName == "" ) {
+                                editProjectName = "Not assigned to project.";
+                            }
+                            let editTaskStatus = document.querySelector("#editS_input");
+                            if (editTaskStatus.checked == true ) {
+                                editTaskStatus = "COMPLETE";
+                            } else {
+                                editTaskStatus = "INCOMPLETE";
+                            }
+                            let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
+                            let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
+                            let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
+                            let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
+                            let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
+                        
+                            if ( editTaskName == "" || editTaskDueDate == "" ) {
+                                alert("Name and Due Date cannot remain blank.")
+                            } else {
+                                tasks[editButtonIndex].projectName = editProjectName;
+                                tasks[editButtonIndex].taskStatus = editTaskStatus;
+                                tasks[editButtonIndex].taskName = editTaskName;
+                                tasks[editButtonIndex].taskPriority = editTaskPriority;
+                                tasks[editButtonIndex].taskDueDate = editTaskDueDate;
+                                tasks[editButtonIndex].taskDescription = editTaskDescription;
+                                tasks[editButtonIndex].taskNotes = editTaskNotes;
+                                console.log(tasks[editButtonIndex]);
+                                console.log(tasks);
+                                
+                                // code that changes the innertexts of the boxes;
+            
+                                editForm.reset();
+                                editForm.style.display = "none";
+                            };
+                        });     
+                    };
+                });
+            });
+
         } else {
             let oldTaskList = document.querySelector(".taskList");
             home.removeChild(oldTaskList);
             let taskVisual = displayTasks(tasks);
             home.appendChild(taskVisual);
-        }
-    }
 
-    const editButtons = document.querySelectorAll(".editButton");
-    editButtons.forEach(e => e.addEventListener("click", (e) => {
-        if (e.target) {
-            editForm.style.display = "grid";
-            let editButtonIndex = e.target.getAttribute("data-taskNumber");
-            let editSubmission = document.querySelector(".editSubmitTask");
-            editSubmission.addEventListener("click", (e) => {
-                e.preventDefault();
-                let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
-                if ( editProjectName == "" ) {
-                    editProjectName = "Not assigned to project.";
-                }
-                let editTaskStatus = document.querySelector("#editS_input");
-                if (editTaskStatus.checked == true ) {
-                    editTaskStatus = "COMPLETE";
-                } else {
-                    editTaskStatus = "INCOMPLETE";
-                }
-                let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
-                let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
-                let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
-                let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
-                let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
+            const taskContainers = document.querySelectorAll(".taskContainer");
+            taskContainers.forEach(element => {
+                let elementIndex = element.getAttribute("data-taskNumber");
+                
+                let deletButton = document.querySelector(`.deleteButton[data-taskNumber="${elementIndex}"]`);
+                deletButton.addEventListener("click", (e) => {
+                    if (e.target) {
+                        let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                        let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                        let selectedTaskList = document.querySelector(".taskList");
+                        selectedTaskList.removeChild(removedTaskContainer);
+                        tasks.splice(targetButtonIndex, 1);
             
-                if ( taskName == "" || taskDueDate == "" ) {
-                    alert("Name and Due Date cannot remain blank.")
-                } else {
-                    tasks[editButtonIndex].projectName = editProjectName;
-                    tasks[editButtonIndex].taskStatus = editTaskStatus;
-                    tasks[editButtonIndex].taskName = editTaskName;
-                    tasks[editButtonIndex].taskPriority = editTaskPriority;
-                    tasks[editButtonIndex].taskDueDate = editTaskDueDate;
-                    tasks[editButtonIndex].taskDescription = editTaskDescription;
-                    tasks[editButtonIndex].taskNotes = editTaskNotes;
-                    console.log(tasks[editButtonIndex]);
-                    
-                    let oldTaskList = document.querySelector(".taskList");
-                    let newTaskList = displayTasks(tasks);
-                    home.removeChild(oldTaskList);
-                    home.appendChild(newTaskList);
-
-                    editForm.reset();
-                    editForm.style.display = "none";
-                }
-            });     
-        }
-    })); 
-
-    const deleteButtons = document.querySelectorAll(".deleteButton");
-    deleteButtons.forEach(e => e.addEventListener("click", (e) => {
-        if (e.target) {
-            let targetButtonIndex = e.target.getAttribute("data-taskNumber");
-            console.log(targetButtonIndex);
-            let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
-            console.log(removedTaskContainer);
-            let selectedTaskList = document.querySelector(".taskList");
-            selectedTaskList.removeChild(removedTaskContainer);
-            tasks.splice(targetButtonIndex, 1);
-            console.log(tasks);
-
-            let remainingTasks = document.querySelectorAll(".taskContainer");
-            let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
-            let remainingEditButtons = document.querySelectorAll(".editButton");
-
-            for ( let i = 0; i < remainingTasks.length; i ++ ) {
-                remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
-                remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
-                remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
-            }
-        }
-    }));
+                        let remainingTasks = document.querySelectorAll(".taskContainer");
+                        let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                        let remainingEditButtons = document.querySelectorAll(".editButton");
+            
+                        for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                            remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                            remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                            remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                        };
+                    };
+                });
+            
+                let eButton = document.querySelector(`.editButton[data-taskNumber="${elementIndex}"]`);
+                eButton.addEventListener("click", (e) => {
+                    if (e.target) {
+                        eButton.disabled = true;
+                        console.log("hey");
+                        editForm.style.display = "grid";
+                        let editButtonIndex = e.target.getAttribute("data-taskNumber");
+                        let editSubmission = document.querySelector(".editSubmitTask");
+                        editSubmission.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
+                            if ( editProjectName == "" ) {
+                                editProjectName = "Not assigned to project.";
+                            }
+                            let editTaskStatus = document.querySelector("#editS_input");
+                            if (editTaskStatus.checked == true ) {
+                                editTaskStatus = "COMPLETE";
+                            } else {
+                                editTaskStatus = "INCOMPLETE";
+                            }
+                            let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
+                            let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
+                            let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
+                            let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
+                            let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
+                        
+                            if ( editTaskName == "" || editTaskDueDate == "" ) {
+                                alert("Name and Due Date cannot remain blank.")
+                            } else {
+                                tasks[editButtonIndex].projectName = editProjectName;
+                                tasks[editButtonIndex].taskStatus = editTaskStatus;
+                                tasks[editButtonIndex].taskName = editTaskName;
+                                tasks[editButtonIndex].taskPriority = editTaskPriority;
+                                tasks[editButtonIndex].taskDueDate = editTaskDueDate;
+                                tasks[editButtonIndex].taskDescription = editTaskDescription;
+                                tasks[editButtonIndex].taskNotes = editTaskNotes;
+                                console.log(tasks[editButtonIndex]);
+                                console.log(tasks);
+                                
+                                // code that changes the innertexts of the boxes;
+            
+                                editForm.reset();
+                                editForm.style.display = "none";
+                            };
+                        });     
+                    };
+                });
+            });
+        };
+    };
 });
 
 homeTab.addEventListener("click", (e) => {
@@ -236,80 +312,79 @@ homeTab.addEventListener("click", (e) => {
 
         let taskVisual = displayTasks(tasks);
         home.appendChild(taskVisual);
-    
-        // edit and delete functionality may also be needed outside of the submit event listener;
 
-        const editButtons = document.querySelectorAll(".editButton");
-        editButtons.forEach(e => e.addEventListener("click", (e) => {
-            if (e.target) {
-                editForm.style.display = "grid";
-                let editButtonIndex = e.target.getAttribute("data-taskNumber");
-                let editSubmission = document.querySelector(".editSubmitTask");
-                editSubmission.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
-                    if ( editProjectName == "" ) {
-                        editProjectName = "Not assigned to project.";
-                    }
-                    let editTaskStatus = document.querySelector("#editS_input");
-                    if (editTaskStatus.checked == true ) {
-                        editTaskStatus = "COMPLETE";
-                    } else {
-                        editTaskStatus = "INCOMPLETE";
-                    }
-                    let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
-                    let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
-                    let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
-                    let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
-                    let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
-                
-                    if ( taskName == "" || taskDueDate == "" ) {
-                        alert("Name and Due Date cannot remain blank.")
-                    } else {
-                        tasks[editButtonIndex].projectName = editProjectName;
-                        tasks[editButtonIndex].taskStatus = editTaskStatus;
-                        tasks[editButtonIndex].taskName = editTaskName;
-                        tasks[editButtonIndex].taskPriority = editTaskPriority;
-                        tasks[editButtonIndex].taskDueDate = editTaskDueDate;
-                        tasks[editButtonIndex].taskDescription = editTaskDescription;
-                        tasks[editButtonIndex].taskNotes = editTaskNotes;
-                        console.log(tasks[editButtonIndex]);
-                        
-                        let oldTaskList = document.querySelector(".taskList");
-                        let newTaskList = displayTasks(tasks);
-                        home.removeChild(oldTaskList);
-                        home.appendChild(newTaskList);
-    
-                        editForm.reset();
-                        editForm.style.display = "none";
-                    }
-                });     
-            }
-        })); 
+        const taskContainers = document.querySelectorAll(".taskContainer");
+        taskContainers.forEach(element => {
+            let elementIndex = element.getAttribute("data-taskNumber");
+            
+            let deletButton = document.querySelector(`.deleteButton[data-taskNumber="${elementIndex}"]`);
+            deletButton.addEventListener("click", (e) => {
+                if (e.target) {
+                    let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                    let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                    let selectedTaskList = document.querySelector(".taskList");
+                    selectedTaskList.removeChild(removedTaskContainer);
+                    tasks.splice(targetButtonIndex, 1);
+        
+                    let remainingTasks = document.querySelectorAll(".taskContainer");
+                    let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                    let remainingEditButtons = document.querySelectorAll(".editButton");
+        
+                    for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                        remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                        remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                        remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                    };
+                };
+            });
 
-        const deleteButtons = document.querySelectorAll(".deleteButton");
-        deleteButtons.forEach(e => e.addEventListener("click", (e) => {
-            if (e.target) {
-                let targetButtonIndex = e.target.getAttribute("data-taskNumber");
-                console.log(targetButtonIndex);
-                let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
-                console.log(removedTaskContainer);
-                let selectedTaskList = document.querySelector(".taskList");
-                selectedTaskList.removeChild(removedTaskContainer);
-                tasks.splice(targetButtonIndex, 1);
-                console.log(tasks);
-    
-                let remainingTasks = document.querySelectorAll(".taskContainer");
-                let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
-                let remainingEditButtons = document.querySelectorAll(".editButton");
-    
-                for ( let i = 0; i < remainingTasks.length; i ++ ) {
-                    remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
-                    remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
-                    remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
-                }
-            }
-        }));
+            let eButton = document.querySelector(`.editButton[data-taskNumber="${elementIndex}"]`);
+            eButton.addEventListener("click", (e) => {
+                if (e.target) {
+                    eButton.disabled = true;
+                    editForm.style.display = "grid";
+                    let editButtonIndex = e.target.getAttribute("data-taskNumber");
+                    let editSubmission = document.querySelector(".editSubmitTask");
+                    editSubmission.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
+                        if ( editProjectName == "" ) {
+                            editProjectName = "Not assigned to project.";
+                        }
+                        let editTaskStatus = document.querySelector("#editS_input");
+                        if (editTaskStatus.checked == true ) {
+                            editTaskStatus = "COMPLETE";
+                        } else {
+                            editTaskStatus = "INCOMPLETE";
+                        }
+                        let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
+                        let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
+                        let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
+                        let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
+                        let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
+                    
+                        if ( editTaskName == "" || editTaskDueDate == "" ) {
+                            alert("Name and Due Date cannot remain blank.")
+                        } else {
+                            tasks[editButtonIndex].projectName = editProjectName;
+                            tasks[editButtonIndex].taskStatus = editTaskStatus;
+                            tasks[editButtonIndex].taskName = editTaskName;
+                            tasks[editButtonIndex].taskPriority = editTaskPriority;
+                            tasks[editButtonIndex].taskDueDate = editTaskDueDate;
+                            tasks[editButtonIndex].taskDescription = editTaskDescription;
+                            tasks[editButtonIndex].taskNotes = editTaskNotes;
+                            console.log(tasks[editButtonIndex]);
+                            console.log(tasks);
+                            
+                            // code that changes the innertexts of the boxes;
+        
+                            editForm.reset();
+                            editForm.style.display = "none";
+                        };
+                    });     
+                };
+            });
+        });
 
         addTaskButton.addEventListener("click", (e) => {
             form.style.display = "grid";
@@ -346,85 +421,162 @@ homeTab.addEventListener("click", (e) => {
                 if ( document.querySelector(".taskList") == null ) {
                     let taskVisual = displayTasks(tasks);
                     home.appendChild(taskVisual);
+
+                    const taskContainers = document.querySelectorAll(".taskContainer");
+                    taskContainers.forEach(element => {
+                        let elementIndex = element.getAttribute("data-taskNumber");
+                        
+                        let deletButton = document.querySelector(`.deleteButton[data-taskNumber="${elementIndex}"]`);
+                        deletButton.addEventListener("click", (e) => {
+                            if (e.target) {
+                                let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                                let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                                let selectedTaskList = document.querySelector(".taskList");
+                                selectedTaskList.removeChild(removedTaskContainer);
+                                tasks.splice(targetButtonIndex, 1);
+                    
+                                let remainingTasks = document.querySelectorAll(".taskContainer");
+                                let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                                let remainingEditButtons = document.querySelectorAll(".editButton");
+                    
+                                for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                                    remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                                    remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                                    remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                                };
+                            };
+                        });
+                    
+                        let eButton = document.querySelector(`.editButton[data-taskNumber="${elementIndex}"]`);
+                        eButton.addEventListener("click", (e) => {
+                            if (e.target) {
+                                eButton.disabled = true;
+                                console.log("hey");
+                                editForm.style.display = "grid";
+                                let editButtonIndex = e.target.getAttribute("data-taskNumber");
+                                let editSubmission = document.querySelector(".editSubmitTask");
+                                editSubmission.addEventListener("click", (e) => {
+                                    e.preventDefault();
+                                    let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
+                                    if ( editProjectName == "" ) {
+                                        editProjectName = "Not assigned to project.";
+                                    }
+                                    let editTaskStatus = document.querySelector("#editS_input");
+                                    if (editTaskStatus.checked == true ) {
+                                        editTaskStatus = "COMPLETE";
+                                    } else {
+                                        editTaskStatus = "INCOMPLETE";
+                                    }
+                                    let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
+                                    let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
+                                    let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
+                                    let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
+                                    let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
+                                
+                                    if ( editTaskName == "" || editTaskDueDate == "" ) {
+                                        alert("Name and Due Date cannot remain blank.")
+                                    } else {
+                                        tasks[editButtonIndex].projectName = editProjectName;
+                                        tasks[editButtonIndex].taskStatus = editTaskStatus;
+                                        tasks[editButtonIndex].taskName = editTaskName;
+                                        tasks[editButtonIndex].taskPriority = editTaskPriority;
+                                        tasks[editButtonIndex].taskDueDate = editTaskDueDate;
+                                        tasks[editButtonIndex].taskDescription = editTaskDescription;
+                                        tasks[editButtonIndex].taskNotes = editTaskNotes;
+                                        console.log(tasks[editButtonIndex]);
+                                        console.log(tasks);
+                                        
+                                        // code that changes the innertexts of the boxes;
+                    
+                                        editForm.reset();
+                                        editForm.style.display = "none";
+                                    };
+                                });     
+                            };
+                        });
+                    });
+
                 } else {
                     let oldTaskList = document.querySelector(".taskList");
                     home.removeChild(oldTaskList);
                     let taskVisual = displayTasks(tasks);
                     home.appendChild(taskVisual);
-                }
-            }
 
-            // edit functionality needed
-
-            const editButtons = document.querySelectorAll(".editButton");
-            editButtons.forEach(e => e.addEventListener("click", (e) => {
-                if (e.target) {
-                    editForm.style.display = "grid";
-                    let editButtonIndex = e.target.getAttribute("data-taskNumber");
-                    let editSubmission = document.querySelector(".editSubmitTask");
-                    editSubmission.addEventListener("click", (e) => {
-                        e.preventDefault();
-                        let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
-                        if ( editProjectName == "" ) {
-                            editProjectName = "Not assigned to project.";
-                        }
-                        let editTaskStatus = document.querySelector("#editS_input");
-                        if (editTaskStatus.checked == true ) {
-                            editTaskStatus = "COMPLETE";
-                        } else {
-                            editTaskStatus = "INCOMPLETE";
-                        }
-                        let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
-                        let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
-                        let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
-                        let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
-                        let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
+                    const taskContainers = document.querySelectorAll(".taskContainer");
+                    taskContainers.forEach(element => {
+                        let elementIndex = element.getAttribute("data-taskNumber");
+                        
+                        let deletButton = document.querySelector(`.deleteButton[data-taskNumber="${elementIndex}"]`);
+                        deletButton.addEventListener("click", (e) => {
+                            if (e.target) {
+                                let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                                let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                                let selectedTaskList = document.querySelector(".taskList");
+                                selectedTaskList.removeChild(removedTaskContainer);
+                                tasks.splice(targetButtonIndex, 1);
                     
-                        if ( taskName == "" || taskDueDate == "" ) {
-                            alert("Name and Due Date cannot remain blank.")
-                        } else {
-                            tasks[editButtonIndex].projectName = editProjectName;
-                            tasks[editButtonIndex].taskStatus = editTaskStatus;
-                            tasks[editButtonIndex].taskName = editTaskName;
-                            tasks[editButtonIndex].taskPriority = editTaskPriority;
-                            tasks[editButtonIndex].taskDueDate = editTaskDueDate;
-                            tasks[editButtonIndex].taskDescription = editTaskDescription;
-                            tasks[editButtonIndex].taskNotes = editTaskNotes;
-                            console.log(tasks[editButtonIndex]);
-                            
-                            let oldTaskList = document.querySelector(".taskList");
-                            let newTaskList = displayTasks(tasks);
-                            home.removeChild(oldTaskList);
-                            home.appendChild(newTaskList);
-        
-                            editForm.reset();
-                            editForm.style.display = "none";
-                        }
-                    });     
-                }
-            })); 
-
-            const deleteButtons = document.querySelectorAll(".deleteButton");
-            deleteButtons.forEach(e => e.addEventListener("click", (e) => {
-                if (e.target) {
-                    let targetButtonIndex = e.target.getAttribute("data-taskNumber");
-                    let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
-                    let selectedTaskList = document.querySelector(".taskList");
-                    selectedTaskList.removeChild(removedTaskContainer);
-                    tasks.splice(targetButtonIndex, 1);
-                    console.log(tasks);
-        
-                    let remainingTasks = document.querySelectorAll(".taskContainer");
-                    let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
-                    let remainingEditButtons = document.querySelectorAll(".editButton");
-        
-                    for ( let i = 0; i < remainingTasks.length; i ++ ) {
-                        remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
-                        remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
-                        remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
-                    }
-                }
-            }));        
+                                let remainingTasks = document.querySelectorAll(".taskContainer");
+                                let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                                let remainingEditButtons = document.querySelectorAll(".editButton");
+                    
+                                for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                                    remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                                    remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                                    remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                                }
+                            }
+                        });
+                    
+                        let eButton = document.querySelector(`.editButton[data-taskNumber="${elementIndex}"]`);
+                        eButton.addEventListener("click", (e) => {
+                            if (e.target) {
+                                eButton.disabled = true;
+                                console.log("hey");
+                                editForm.style.display = "grid";
+                                let editButtonIndex = e.target.getAttribute("data-taskNumber");
+                                let editSubmission = document.querySelector(".editSubmitTask");
+                                editSubmission.addEventListener("click", (e) => {
+                                    e.preventDefault();
+                                    let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
+                                    if ( editProjectName == "" ) {
+                                        editProjectName = "Not assigned to project.";
+                                    }
+                                    let editTaskStatus = document.querySelector("#editS_input");
+                                    if (editTaskStatus.checked == true ) {
+                                        editTaskStatus = "COMPLETE";
+                                    } else {
+                                        editTaskStatus = "INCOMPLETE";
+                                    }
+                                    let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
+                                    let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
+                                    let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
+                                    let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
+                                    let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
+                                
+                                    if ( editTaskName == "" || editTaskDueDate == "" ) {
+                                        alert("Name and Due Date cannot remain blank.")
+                                    } else {
+                                        tasks[editButtonIndex].projectName = editProjectName;
+                                        tasks[editButtonIndex].taskStatus = editTaskStatus;
+                                        tasks[editButtonIndex].taskName = editTaskName;
+                                        tasks[editButtonIndex].taskPriority = editTaskPriority;
+                                        tasks[editButtonIndex].taskDueDate = editTaskDueDate;
+                                        tasks[editButtonIndex].taskDescription = editTaskDescription;
+                                        tasks[editButtonIndex].taskNotes = editTaskNotes;
+                                        console.log(tasks[editButtonIndex]);
+                                        console.log(tasks);
+                                        
+                                        // code that changes the innertexts of the boxes;
+                    
+                                        editForm.reset();
+                                        editForm.style.display = "none";
+                                    };
+                                });     
+                            };
+                        });
+                    });
+                };
+            };       
         });
     };
 });
