@@ -27,6 +27,7 @@ showHomeHeader();
 const addTaskButton = document.querySelector(".addTask");
 const submit = document.querySelector(".submitTask");
 const form = document.querySelector("#ntForm");
+const editForm = document.querySelector("#editForm");
 const home = document.querySelector(".home");
 let taskVisual = displayTasks(tasks);
 home.appendChild(taskVisual);
@@ -76,15 +77,53 @@ submit.addEventListener("click", (e) => {
         }
     }
 
-    // const editButtons = document.querySelectorAll(".editButton");
-    // editButtons.forEach(e => e.addEventListener("click", (e) => {
-    //     if (e.target) {
-    //         let editButtonIndex = e.target.getAttribute("data-taskNumber");
+    const editButtons = document.querySelectorAll(".editButton");
+    editButtons.forEach(e => e.addEventListener("click", (e) => {
+        if (e.target) {
+            editForm.style.display = "grid";
+            let editButtonIndex = e.target.getAttribute("data-taskNumber");
+            let editSubmission = document.querySelector(".editSubmitTask");
+            editSubmission.addEventListener("click", (e) => {
+                e.preventDefault();
+                let editProjectName = document.querySelector("#editP_input").value.toUpperCase();
+                if ( editProjectName == "" ) {
+                    editProjectName = "Not assigned to project.";
+                }
+                let editTaskStatus = document.querySelector("#editS_input");
+                if (editTaskStatus.checked == true ) {
+                    editTaskStatus = "COMPLETE";
+                } else {
+                    editTaskStatus = "INCOMPLETE";
+                }
+                let editTaskName = document.querySelector("#editN_input").value.toUpperCase();
+                let editTaskPriority = document.querySelector("#editPri_select").value.toUpperCase();
+                let editTaskDueDate = document.querySelector("#editDate_input").value.toUpperCase();
+                let editTaskDescription = document.querySelector("#editDesc_ta").value.toUpperCase();
+                let editTaskNotes = document.querySelector("#editNotes_ta").value.toUpperCase();
             
-                
-                
-    //     }
-    // })); 
+                if ( taskName == "" || taskDueDate == "" ) {
+                    alert("Name and Due Date cannot remain blank.")
+                } else {
+                    tasks[editButtonIndex].projectName = editProjectName;
+                    tasks[editButtonIndex].taskStatus = editTaskStatus;
+                    tasks[editButtonIndex].taskName = editTaskName;
+                    tasks[editButtonIndex].taskPriority = editTaskPriority;
+                    tasks[editButtonIndex].taskDueDate = editTaskDueDate;
+                    tasks[editButtonIndex].taskDescription = editTaskDescription;
+                    tasks[editButtonIndex].taskNotes = editTaskNotes;
+                    console.log(tasks[editButtonIndex]);
+                    
+                    let oldTaskList = document.querySelector(".taskList");
+                    let newTaskList = displayTasks(tasks);
+                    home.removeChild(oldTaskList);
+                    home.appendChild(newTaskList);
+
+                    editForm.reset();
+                    editForm.style.display = "none";
+                }
+            });     
+        }
+    })); 
 
     const deleteButtons = document.querySelectorAll(".deleteButton");
     deleteButtons.forEach(e => e.addEventListener("click", (e) => {
