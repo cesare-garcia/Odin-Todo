@@ -129,6 +129,8 @@ homeTab.addEventListener("click", (e) => {
             form.style.display = "grid";
         });
 
+        // edit and delete functionality may also be needed outside of the submit event listener;
+
         submit.addEventListener("click", (e) => {
             e.preventDefault();
         
@@ -167,6 +169,8 @@ homeTab.addEventListener("click", (e) => {
                     home.appendChild(taskVisual);
                 }
             }
+
+            // edit functionality needed
 
             const deleteButtons = document.querySelectorAll(".deleteButton");
             deleteButtons.forEach(e => e.addEventListener("click", (e) => {
@@ -308,11 +312,77 @@ projectSubmissionButton.addEventListener("click", (e) => {
                 let projectIndex = e.target.getAttribute("data-projectNumber");
                 showProjectHeader(display, projects, projectIndex);
                 let projectTaskVisual = displayProjectTasks(projects, projectIndex, tasks)
-                let test = document.querySelector(".spHeader");
+                let test = document.querySelector(".spBox");
                 test.appendChild(projectTaskVisual);
-                // add eventlistener to spat class button
-                // project header will need a form as well
-                // add eventlistener to delete buttons
+                let addProjectTask = document.querySelector(".spat");
+                addProjectTask.addEventListener("click", (e) => {
+                    const ptForm = document.querySelector("#projectTaskForm");
+                    ptForm.style.display = "grid";
+                });
+                
+                const ptSubmit = document.querySelector(".ptsubmitTask");
+                ptSubmit.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    const spBox = document.querySelector(".spBox");
+                    const ptForm = document.querySelector("#projectTaskForm");
+
+                    let ptProjectName = document.querySelector(".spName").innerText.toUpperCase();
+                    console.log(ptProjectName);
+                    let ptTaskStatus = document.querySelector("#pts_input");
+                    if (ptTaskStatus.checked == true ) {
+                        ptTaskStatus = "COMPLETE";
+                    } else {
+                        ptTaskStatus = "INCOMPLETE";
+                    }
+                    let ptTaskName = document.querySelector("#ptn_input").value.toUpperCase();
+                    let ptTaskPriority = document.querySelector("#ptpri_select").value.toUpperCase();
+                    let ptTaskDueDate = document.querySelector("#ptdate_input").value.toUpperCase();
+                    let ptTaskDescription = document.querySelector("#ptdesc_ta").value.toUpperCase();
+                    let ptTaskNotes = document.querySelector("#ptnotes_ta").value.toUpperCase();
+
+                    if ( ptTaskName == "" && ptTaskDueDate == "" ) {
+                        alert("You must enter a name and due date for this task.")
+                    } else {
+                        let newTask = buildTask(ptProjectName, ptTaskStatus, ptTaskName, ptTaskPriority, ptTaskDueDate, ptTaskDescription, ptTaskNotes);
+                        tasks.push(newTask);
+                        ptForm.reset();
+                        ptForm.style.display = "none";
+                        
+                        if ( document.querySelector(".taskList") == null ) {
+                            let ptTaskVisual = displayProjectTasks(projects, projectIndex, tasks);
+                            spBox.appendChild(ptTaskVisual);
+                        } else {
+                            let oldTaskList = document.querySelector(".taskList");
+                            spBox.removeChild(oldTaskList);
+                            let ptTaskVisual = displayProjectTasks(projects, projectIndex, tasks);
+                            spBox.appendChild(ptTaskVisual);
+                        }
+                    }
+                });
+                
+                const deleteButtons = document.querySelectorAll(".deleteButton");
+                deleteButtons.forEach(e => e.addEventListener("click", (e) => {
+                    if (e.target) {
+                        let targetButtonIndex = e.target.getAttribute("data-taskNumber");
+                        let removedTaskContainer = document.querySelector(`.taskContainer[data-taskNumber="${targetButtonIndex}"]`);
+                        let selectedTaskList = document.querySelector(".taskList");
+                        selectedTaskList.removeChild(removedTaskContainer);
+                        tasks.splice(targetButtonIndex, 1);
+                        console.log(tasks);
+            
+                        let remainingTasks = document.querySelectorAll(".taskContainer");
+                        let remainingDeleteButtons = document.querySelectorAll(".deleteButton");
+                        let remainingEditButtons = document.querySelectorAll(".editButton");
+            
+                        for ( let i = 0; i < remainingTasks.length; i ++ ) {
+                            remainingTasks[i].setAttribute("data-taskNumber", `${i}`);
+                            remainingDeleteButtons[i].setAttribute("data-taskNumber", `${i}`);
+                            remainingEditButtons[i].setAttribute("data-taskNumber", `${i}`);
+                        }
+                    }
+                }));        
+    
                 // add eventlistener to edit buttons
             }
         }));
