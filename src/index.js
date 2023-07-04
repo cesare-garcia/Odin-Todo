@@ -11,6 +11,7 @@ import addDays from 'date-fns/addDays';
 import displayThisWeeksTasks from './displayThisWeeksTasks.js';
 import showProjectSidebar from './showProjectSidebar.js';
 import showProjectHeader from './showProjectHeader.js';
+import displayProjectTasks from './displayProjectTasks.js';
 
 let tasks = [];
 let projects = [];
@@ -68,7 +69,6 @@ submit.addEventListener("click", (e) => {
             let taskVisual = displayTasks(tasks);
             home.appendChild(taskVisual);
         } else {
-            //delete children then add ^^
             let oldTaskList = document.querySelector(".taskList");
             home.removeChild(oldTaskList);
             let taskVisual = displayTasks(tasks);
@@ -161,7 +161,6 @@ homeTab.addEventListener("click", (e) => {
                     let taskVisual = displayTasks(tasks);
                     home.appendChild(taskVisual);
                 } else {
-                    //delete children then add ^^
                     let oldTaskList = document.querySelector(".taskList");
                     home.removeChild(oldTaskList);
                     let taskVisual = displayTasks(tasks);
@@ -194,6 +193,7 @@ homeTab.addEventListener("click", (e) => {
     };
 });
 
+// we need edit functionality for this tab
 todayTab.addEventListener("click", (e) => {
     if ( display.children.length > 0 ) {
         let removedElement = display.firstChild;
@@ -229,6 +229,7 @@ todayTab.addEventListener("click", (e) => {
     }
 });
 
+// we need edit functionality for this tab
 weekTab.addEventListener("click", (e) => {
     if ( display.children.length > 0 ) {
         let removedElement = display.firstChild;
@@ -265,6 +266,8 @@ weekTab.addEventListener("click", (e) => {
 });
 
 // there needs to be code that displays already created projects if they're in the projects array.
+// we need edit functionality for these tabs
+
 
 const newProjectButton = document.querySelector(".addProject");
 const newProjectsForm = document.querySelector("#npForm");
@@ -304,19 +307,30 @@ projectSubmissionButton.addEventListener("click", (e) => {
                 display.removeChild(removedStuff);
                 let projectIndex = e.target.getAttribute("data-projectNumber");
                 showProjectHeader(display, projects, projectIndex);
-                // display tasks
-                // add eventlistener to addtask button
+                let projectTaskVisual = displayProjectTasks(projects, projectIndex, tasks)
+                let test = document.querySelector(".spHeader");
+                test.appendChild(projectTaskVisual);
+                // add eventlistener to spat class button
+                // project header will need a form as well
+                // add eventlistener to delete buttons
+                // add eventlistener to edit buttons
             }
         }));
     };
     
-    // there will need to be code that prevents an undefined page from showing.
-    // there needs to be code that updates the showProjectHeader and Display ProjectTasks functions
     const deleteProjects = document.querySelectorAll(".deleteProject");
     deleteProjects.forEach( e => e.addEventListener("click", (e) => {
         if (e.target) {
-            console.log(e.target);
             let projectIndex = e.target.getAttribute("data-projectNumber");
+
+            for (let i = tasks.length - 1; i >= 0; i--) {
+                let testedValue = projects[projectIndex];
+                testedValue = projects[projectIndex].toUpperCase();
+                if (tasks[i].projectName.toUpperCase() === testedValue) {
+                    tasks.splice(i, 1);
+                }
+            }
+
             let removedProject = document.querySelector(`.projectContainer[data-projectNumber="${projectIndex}"]`);
             let apBox = document.querySelector(".apBox");
             apBox.removeChild(removedProject);
@@ -324,14 +338,20 @@ projectSubmissionButton.addEventListener("click", (e) => {
 
             if ( projects.length == 0 ) {
                 let removedProjectHeader = display.firstChild;
-                console.log(removedProjectHeader);
                 display.removeChild(removedProjectHeader);
                 showProjectHeader(display, projects, projectIndex);
+                let projectTaskVisual = displayProjectTasks(projects, projectIndex, tasks)
+                let test = document.querySelector(".spHeader");
+                test.appendChild(projectTaskVisual);
+
             } else if ( projects.length > 0 && projectIndex == 0 ) {
                 let removedProjectHeader = display.firstChild;
-                console.log(removedProjectHeader);
                 display.removeChild(removedProjectHeader);
                 showProjectHeader(display, projects, projectIndex);
+                let projectTaskVisual = displayProjectTasks(projects, projectIndex, tasks)
+                let test = document.querySelector(".spHeader");
+                test.appendChild(projectTaskVisual);
+
                 let spName = document.querySelector(".spName");
                 spName.innerText = "Please add or select a project in the sidebar.";
                 let remainingProjects = document.querySelectorAll(".projectContainer");
@@ -351,6 +371,10 @@ projectSubmissionButton.addEventListener("click", (e) => {
                 let removedProjectHeader = display.firstChild;
                 display.removeChild(removedProjectHeader);
                 showProjectHeader(display, projects, `${projectIndex-1}`);
+                let projectTaskVisual = displayProjectTasks(projects, projectIndex, tasks)
+                let test = document.querySelector(".spHeader");
+                test.appendChild(projectTaskVisual);
+
                 let remainingProjects = document.querySelectorAll(".projectContainer");
                 let remainingProjectDeletes = document.querySelectorAll(".deleteProject");
                 let remainingProjectHeaders = document.querySelectorAll(".projectHeader");
