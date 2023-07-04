@@ -2,13 +2,14 @@ const displayProjectTasks = (projectArray, projectIndex, taskArray) => {
 
     let taskList = document.createElement("div");
     taskList.classList.add("taskList");
-    let testedValue = projectArray[projectIndex].toUpperCase();
-
+    let testedValue = projectArray[projectIndex];
+    if ( testedValue != undefined ) {
+        testedValue = projectArray[projectIndex].toUpperCase();
+    }
+    
     for (let i = 0; i < taskArray.length; i++ ) {
         
         if (testedValue == taskArray[i].projectName) {
-            console.log(projectArray[projectIndex]);
-            console.log(taskArray[i].projectName);
             let taskContainer = document.createElement("div");
             taskContainer.classList.add("taskContainer");
             taskContainer.setAttribute("data-taskNumber", `${i}`);
