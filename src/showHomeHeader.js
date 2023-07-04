@@ -126,6 +126,113 @@ const showHomeHeader = () => {
     newTaskForm.appendChild(descriptionDiv);
     newTaskForm.appendChild(notesDiv);
     newTaskForm.appendChild(submitTaskButton);
+
+    const editTaskForm = document.createElement("form");
+    editTaskForm.setAttribute("id", "editForm");
+    editTaskForm.style.display = "none";
+
+    const editProjectDiv = document.createElement("div");
+    editProjectDiv.classList.add("editProjectDiv");
+    const editProjectLabel = document.createElement("label");
+    editProjectLabel.setAttribute("for", "editP_input");
+    editProjectLabel.innerText = "Project (optional): ";
+    const editProjectInput = document.createElement("input");
+    editProjectInput.setAttribute("id", "editP_input");
+    editProjectInput.setAttribute("name", "editP_input");
+    editProjectDiv.appendChild(editProjectLabel);
+    editProjectDiv.appendChild(editProjectInput);
+
+    const editStatusDiv = document.createElement("div");
+    editStatusDiv.classList.add("editStatusDiv");
+    const editStatusLabel = document.createElement("label");
+    editStatusLabel.setAttribute("for", "editS_input");
+    editStatusLabel.innerText = "Status: ";
+    const editStatusInput = document.createElement("input");
+    editStatusInput.setAttribute("type", "checkbox");
+    editStatusInput.setAttribute("id", "editS_input");
+    editStatusInput.setAttribute("name", "editS_input");
+    editStatusDiv.appendChild(editStatusLabel);
+    editStatusDiv.appendChild(editStatusInput);
+
+    const editNameDiv = document.createElement("div");
+    editNameDiv.classList.add("editNameDiv");
+    const editNameLabel = document.createElement("label");
+    editNameLabel.setAttribute("for", "editN_input");
+    editNameLabel.innerText = "Name: ";
+    const editNameInput = document.createElement("input");
+    editNameInput.setAttribute("id", "editN_input");
+    editNameInput.setAttribute("name", "editN_input");
+    editNameDiv.appendChild(editNameLabel);
+    editNameDiv.appendChild(editNameInput);
+
+    const editPriorityDiv = document.createElement("div");
+    editPriorityDiv.classList.add("editPriorityDiv");
+    const editPriorityLabel = document.createElement("label");
+    editPriorityLabel.innerText = "Priority: ";
+    const editPrioritySelect = document.createElement("select");
+    editPrioritySelect.setAttribute("id", "editPri_select");
+    const editPriorityOption1 = document.createElement("option");
+    editPriorityOption1.innerText = "Low";
+    const editPriorityOption2 = document.createElement("option");
+    editPriorityOption2.innerText = "Medium";
+    const editPriorityOption3 = document.createElement("option");
+    editPriorityOption3.innerText = "High";
+    editPriorityDiv.appendChild(editPriorityLabel);
+    editPriorityDiv.appendChild(editPrioritySelect);
+    editPrioritySelect.appendChild(editPriorityOption1);
+    editPrioritySelect.appendChild(editPriorityOption2);
+    editPrioritySelect.appendChild(editPriorityOption3);
+
+    const editDueDateDiv = document.createElement("div");
+    editDueDateDiv.classList.add("editDueDateDiv");
+    const editDueDateLabel = document.createElement("label");
+    editDueDateLabel.innerText = "Due Date: ";
+    editDueDateLabel.setAttribute("for", "editDate_input");
+    const editDueDateInput = document.createElement("input");
+    editDueDateInput.setAttribute("type", "date");
+    editDueDateInput.setAttribute("name", "editDate_input");
+    editDueDateInput.setAttribute("id", "editDate_input");
+    editDueDateDiv.appendChild(editDueDateLabel);
+    editDueDateDiv.appendChild(editDueDateInput);
+
+    const editDescriptionDiv = document.createElement("div");
+    editDescriptionDiv.classList.add("editDescriptionDiv");
+    const editDescriptionLabel = document.createElement("label");
+    editDescriptionLabel.innerText = "Description: ";
+    editDescriptionLabel.setAttribute("for", "editDesc_ta");
+    const editDescriptionTA = document.createElement("textarea");
+    editDescriptionTA.setAttribute("name", "editDesc_ta");
+    editDescriptionTA.setAttribute("id", "editDesc_ta");
+    editDescriptionTA.setAttribute("rows", "5");
+    editDescriptionDiv.appendChild(editDescriptionLabel);
+    editDescriptionDiv.appendChild(editDescriptionTA);
+
+    const editNotesDiv = document.createElement("div");
+    editNotesDiv.classList.add("editNotesDiv");
+    const editNotesLabel = document.createElement("label");
+    editNotesLabel.setAttribute("for", "editNotes_ta");
+    editNotesLabel.innerText = "Notes: ";
+    const editNotesTA = document.createElement("textarea");
+    editNotesTA.setAttribute("name", "editNotes_ta");
+    editNotesTA.setAttribute("id", "editNotes_ta");
+    editNotesTA.setAttribute("rows", "5");
+    editNotesDiv.appendChild(editNotesLabel);
+    editNotesDiv.appendChild(editNotesTA);
+
+    const editSubmitTaskButton = document.createElement("button");
+    editSubmitTaskButton.classList.add("editSubmitTask");
+    editSubmitTaskButton.innerText = "Submit";
+
+    home.appendChild(editTaskForm);
+    editTaskForm.appendChild(editProjectDiv);
+    editTaskForm.appendChild(editStatusDiv);
+    editTaskForm.appendChild(editNameDiv);
+    editTaskForm.appendChild(editPriorityDiv);
+    editTaskForm.appendChild(editDueDateDiv);
+    editTaskForm.appendChild(editDescriptionDiv);
+    editTaskForm.appendChild(editNotesDiv);
+    editTaskForm.appendChild(editSubmitTaskButton);
+    
 };
 
 export default showHomeHeader;
