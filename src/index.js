@@ -14,7 +14,7 @@ import showProjectHeader from './showProjectHeader.js';
 import displayProjectTasks from './displayProjectTasks.js';
 
 let tasks = [];
-let projects = ['fire'];
+let projects = [];
 const contentDiv = document.querySelector("#content");
 
 loadPage(contentDiv);
@@ -96,6 +96,25 @@ taskContainers.forEach(element => {
                     console.log(tasks[editButtonIndex]);
                     console.log(tasks);
                     
+                    let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                    nprojectname.innerText = editProjectName;
+                    let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                    if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                        nstatus.checked = true;
+                    } else {
+                        nstatus.checked = false;
+                    }
+                    let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                    ntaskname.innerText = editTaskName;
+                    let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                    npriority.innerText = editTaskPriority;
+                    let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                    nduedate.innerText = editTaskDueDate;
+                    let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                    ndesc.innerText = editTaskDescription;
+                    let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                    nnotes.innerText = editTaskNotes;
+
                     // code that changes the innertexts of the boxes;
 
                     editForm.reset();
@@ -205,9 +224,27 @@ submit.addEventListener("click", (e) => {
                                 tasks[editButtonIndex].taskNotes = editTaskNotes;
                                 console.log(tasks[editButtonIndex]);
                                 console.log(tasks);
-                                
-                                // code that changes the innertexts of the boxes;
             
+                                let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nprojectname.innerText = editProjectName;
+                                let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                    nstatus.checked = true;
+                                } else {
+                                    nstatus.checked = false;
+                                }
+                                let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                ntaskname.innerText = editTaskName;
+                                let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                npriority.innerText = editTaskPriority;
+                                let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nduedate.innerText = editTaskDueDate;
+                                let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                ndesc.innerText = editTaskDescription;
+                                let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nnotes.innerText = editTaskNotes;
+            
+
                                 editForm.reset();
                                 editForm.style.display = "none";
                                 eButton.disabled = false;
@@ -289,6 +326,26 @@ submit.addEventListener("click", (e) => {
                                 
                                 // code that changes the innertexts of the boxes;
             
+                                let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nprojectname.innerText = editProjectName;
+                                let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                    nstatus.checked = true;
+                                } else {
+                                    nstatus.checked = false;
+                                }
+                                let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                ntaskname.innerText = editTaskName;
+                                let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                npriority.innerText = editTaskPriority;
+                                let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nduedate.innerText = editTaskDueDate;
+                                let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                ndesc.innerText = editTaskDescription;
+                                let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nnotes.innerText = editTaskNotes;
+            
+
                                 editForm.reset();
                                 editForm.style.display = "none";
                                 eButton.disabled = false;
@@ -380,6 +437,26 @@ homeTab.addEventListener("click", (e) => {
                             console.log(tasks);
                             
                             // code that changes the innertexts of the boxes;
+
+                            let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nprojectname.innerText = editProjectName;
+                            let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                            if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                nstatus.checked = true;
+                            } else {
+                                nstatus.checked = false;
+                            }
+                            let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                            ntaskname.innerText = editTaskName;
+                            let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                            npriority.innerText = editTaskPriority;
+                            let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nduedate.innerText = editTaskDueDate;
+                            let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                            ndesc.innerText = editTaskDescription;
+                            let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nnotes.innerText = editTaskNotes;
+        
         
                             editForm.reset();
                             editForm.style.display = "none";
@@ -491,6 +568,26 @@ homeTab.addEventListener("click", (e) => {
                                         console.log(tasks);
                                         
                                         // code that changes the innertexts of the boxes;
+
+                                        let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        nprojectname.innerText = editProjectName;
+                                        let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                        if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                            nstatus.checked = true;
+                                        } else {
+                                            nstatus.checked = false;
+                                        }
+                                        let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        ntaskname.innerText = editTaskName;
+                                        let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        npriority.innerText = editTaskPriority;
+                                        let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        nduedate.innerText = editTaskDueDate;
+                                        let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        ndesc.innerText = editTaskDescription;
+                                        let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        nnotes.innerText = editTaskNotes;
+                    
                     
                                         editForm.reset();
                                         editForm.style.display = "none";
@@ -572,6 +669,26 @@ homeTab.addEventListener("click", (e) => {
                                         console.log(tasks);
                                         
                                         // code that changes the innertexts of the boxes;
+
+                                        let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        nprojectname.innerText = editProjectName;
+                                        let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                        if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                            nstatus.checked = true;
+                                        } else {
+                                            nstatus.checked = false;
+                                        }
+                                        let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        ntaskname.innerText = editTaskName;
+                                        let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        npriority.innerText = editTaskPriority;
+                                        let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        nduedate.innerText = editTaskDueDate;
+                                        let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        ndesc.innerText = editTaskDescription;
+                                        let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                        nnotes.innerText = editTaskNotes;
+                    
                     
                                         editForm.reset();
                                         editForm.style.display = "none";
@@ -661,6 +778,25 @@ todayTab.addEventListener("click", (e) => {
                             console.log(tasks);
                             
                             // code that changes the innertexts of the boxes;
+
+                            let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nprojectname.innerText = editProjectName;
+                            let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                            if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                nstatus.checked = true;
+                            } else {
+                                nstatus.checked = false;
+                            }
+                            let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                            ntaskname.innerText = editTaskName;
+                            let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                            npriority.innerText = editTaskPriority;
+                            let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nduedate.innerText = editTaskDueDate;
+                            let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                            ndesc.innerText = editTaskDescription;
+                            let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nnotes.innerText = editTaskNotes;
         
                             editForm.reset();
                             editForm.style.display = "none";
@@ -748,6 +884,26 @@ weekTab.addEventListener("click", (e) => {
                             console.log(tasks);
                             
                             // code that changes the innertexts of the boxes;
+
+                            let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nprojectname.innerText = editProjectName;
+                            let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                            if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                nstatus.checked = true;
+                            } else {
+                                nstatus.checked = false;
+                            }
+                            let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                            ntaskname.innerText = editTaskName;
+                            let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                            npriority.innerText = editTaskPriority;
+                            let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nduedate.innerText = editTaskDueDate;
+                            let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                            ndesc.innerText = editTaskDescription;
+                            let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                            nnotes.innerText = editTaskNotes;
+        
         
                             editForm.reset();
                             editForm.style.display = "none";
@@ -759,9 +915,6 @@ weekTab.addEventListener("click", (e) => {
         });
     };
 });
-
-// there needs to be code that displays already created projects if they're in the projects array.
-// we need edit functionality for these tabs
 
 showProjectSidebar(projects);
 let apBox = document.querySelector(".apBox");
@@ -842,6 +995,26 @@ if ( apBox.children.length > 0 ) {
                                 console.log(tasks);
                                 
                                 // code that changes the innertexts of the boxes;
+
+                                let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nprojectname.innerText = editProjectName;
+                                let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                    nstatus.checked = true;
+                                } else {
+                                    nstatus.checked = false;
+                                }
+                                let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                ntaskname.innerText = editTaskName;
+                                let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                npriority.innerText = editTaskPriority;
+                                let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nduedate.innerText = editTaskDueDate;
+                                let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                ndesc.innerText = editTaskDescription;
+                                let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                nnotes.innerText = editTaskNotes;
+            
             
                                 editForm.reset();
                                 editForm.style.display = "none";
@@ -955,6 +1128,26 @@ if ( apBox.children.length > 0 ) {
                                             console.log(tasks);
                                             
                                             // code that changes the innertexts of the boxes;
+
+                                            let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            nprojectname.innerText = editProjectName;
+                                            let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                            if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                                nstatus.checked = true;
+                                            } else {
+                                                nstatus.checked = false;
+                                            }
+                                            let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            ntaskname.innerText = editTaskName;
+                                            let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            npriority.innerText = editTaskPriority;
+                                            let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            nduedate.innerText = editTaskDueDate;
+                                            let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            ndesc.innerText = editTaskDescription;
+                                            let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            nnotes.innerText = editTaskNotes;
+                        
                         
                                             editForm.reset();
                                             editForm.style.display = "none";
@@ -1035,6 +1228,26 @@ if ( apBox.children.length > 0 ) {
                                             console.log(tasks);
                                             
                                             // code that changes the innertexts of the boxes;
+
+                                            let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            nprojectname.innerText = editProjectName;
+                                            let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                            if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                                nstatus.checked = true;
+                                            } else {
+                                                nstatus.checked = false;
+                                            }
+                                            let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            ntaskname.innerText = editTaskName;
+                                            let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            npriority.innerText = editTaskPriority;
+                                            let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            nduedate.innerText = editTaskDueDate;
+                                            let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            ndesc.innerText = editTaskDescription;
+                                            let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                            nnotes.innerText = editTaskNotes;
+                        
                         
                                             editForm.reset();
                                             editForm.style.display = "none";
@@ -1229,6 +1442,26 @@ projectSubmissionButton.addEventListener("click", (e) => {
                                     console.log(tasks);
                                     
                                     // code that changes the innertexts of the boxes;
+
+                                    let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                    nprojectname.innerText = editProjectName;
+                                    let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                    if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                        nstatus.checked = true;
+                                    } else {
+                                        nstatus.checked = false;
+                                    }
+                                    let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                    ntaskname.innerText = editTaskName;
+                                    let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                    npriority.innerText = editTaskPriority;
+                                    let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                    nduedate.innerText = editTaskDueDate;
+                                    let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                    ndesc.innerText = editTaskDescription;
+                                    let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                    nnotes.innerText = editTaskNotes;
+                
                 
                                     editForm.reset();
                                     editForm.style.display = "none";
@@ -1342,6 +1575,26 @@ projectSubmissionButton.addEventListener("click", (e) => {
                                                 console.log(tasks);
                                                 
                                                 // code that changes the innertexts of the boxes;
+
+                                                let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                nprojectname.innerText = editProjectName;
+                                                let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                                if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                                    nstatus.checked = true;
+                                                } else {
+                                                    nstatus.checked = false;
+                                                }
+                                                let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                ntaskname.innerText = editTaskName;
+                                                let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                npriority.innerText = editTaskPriority;
+                                                let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                nduedate.innerText = editTaskDueDate;
+                                                let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                ndesc.innerText = editTaskDescription;
+                                                let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                nnotes.innerText = editTaskNotes;
+                            
                             
                                                 editForm.reset();
                                                 editForm.style.display = "none";
@@ -1422,6 +1675,26 @@ projectSubmissionButton.addEventListener("click", (e) => {
                                                 console.log(tasks);
                                                 
                                                 // code that changes the innertexts of the boxes;
+
+                                                let nprojectname = document.querySelector(`.tcProjectDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                nprojectname.innerText = editProjectName;
+                                                let nstatus = document.querySelector(`.taskCheck[data-taskNumber="${editButtonIndex}"]`);
+                                                if ( tasks[editButtonIndex].taskStatus == "COMPLETE" ) {
+                                                    nstatus.checked = true;
+                                                } else {
+                                                    nstatus.checked = false;
+                                                }
+                                                let ntaskname = document.querySelector(`.tcNameDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                ntaskname.innerText = editTaskName;
+                                                let npriority = document.querySelector(`.tcPriorityDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                npriority.innerText = editTaskPriority;
+                                                let nduedate = document.querySelector(`.tcDueDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                nduedate.innerText = editTaskDueDate;
+                                                let ndesc = document.querySelector(`.tcDescDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                ndesc.innerText = editTaskDescription;
+                                                let nnotes = document.querySelector(`.tcNotesDiv[data-taskNumber="${editButtonIndex}"]`);
+                                                nnotes.innerText = editTaskNotes;
+                            
                             
                                                 editForm.reset();
                                                 editForm.style.display = "none";
