@@ -14,7 +14,7 @@ import showProjectHeader from './showProjectHeader.js';
 import displayProjectTasks from './displayProjectTasks.js';
 
 let tasks = [];
-let projects = [];
+let projects = ['fire'];
 const contentDiv = document.querySelector("#content");
 
 loadPage(contentDiv);
@@ -763,6 +763,7 @@ weekTab.addEventListener("click", (e) => {
 // there needs to be code that displays already created projects if they're in the projects array.
 // we need edit functionality for these tabs
 
+showProjectSidebar(projects);
 let apBox = document.querySelector(".apBox");
 if ( apBox.children.length > 0 ) {
     const projectList = document.querySelectorAll(".projectTitle");
@@ -1122,7 +1123,6 @@ deleteProjects.forEach( e => e.addEventListener("click", (e) => {
     }
 }));
 
-
 const newProjectButton = document.querySelector(".addProject");
 const newProjectsForm = document.querySelector("#npForm");
 const npsd = document.querySelector(".npsd");
@@ -1151,7 +1151,6 @@ projectSubmissionButton.addEventListener("click", (e) => {
         alert("Project must have a name.");
     }
 
-    //this is the add project button
     let apBox = document.querySelector(".apBox");
     if ( apBox.children.length > 0 ) {
         const projectList = document.querySelectorAll(".projectTitle");
