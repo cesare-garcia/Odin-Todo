@@ -1,157 +1,72 @@
 body {
-    height: 100vh;
     margin: 0;
-    font-family: "Roboto";
 }
 
 header,
 footer {
-    height: 100px;
-    background-color: navy;
+    height: 125px;
+    background-color: rgb(4, 4, 90);
+}
+
+header {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 main {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    height: 80vh;
+    display: flex;
+    min-height: 500px;
 }
 
-h1 {
-    margin: 0;
+.headerTitle {
     color: white;
 }
 
-form {
+#sidebar {
+    min-width: 20vw;
+    background-color: rgb(214, 202, 202);
     display: grid;
-    grid-template-columns: repeat(3,1fr) ;
-    grid-template-rows: 40px 40px 100px;
-    justify-content: flex-start;
-    align-items: center;
-    column-gap: 10px;
+    grid-template-rows: repeat(4, 75px);
 }
 
-@font-face {
-    font-family: "Roboto";
-    src: url(Roboto-Regular.ttf);
+#newProjectForm {
+    display: none;
 }
 
-.sidebar {
-    grid-column: 1 / 2;
-    background-color: #fee8b3;
-    color: navy;
+#display {
+    width: 80vw;
+    background-color: rgb(226, 221, 221);
 }
 
-.s_Option {
-    font-size: 32px;
-}
-
-.sidebarOption:hover {
-    background-color: red;
-}
-
-.display {
-    background-color: #FCF5E5;
-}
-
-.homeHeader {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.at_topHalf {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.titleAndButton {
+.tabHeader {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
 }
 
-.descriptionDiv,
-.editDescriptionDiv {
-    grid-row: 3/4;
-    grid-column: 1/2;
-}
-
-.notesDiv,
-.editNotesDiv {
-    grid-row: 3/4;
-    grid-column: 2/3;
-}
-
-.submitTask,
-.ptsubmitTask,
-.editSubmitTask {
-    grid-row: 3/4;
-    grid-column: 3/4;
+#newTaskForm {
+    background-color: white;
+    padding: 10px;
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20px;
 }
 
 .taskContainer {
-    margin: 10px;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
     background-color: white;
-    min-height: 75px;
+    margin: 10px;
 }
 
-.completedTask {
-    text-decoration: line-through;
-}
-
-.tcTop {
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 5px;
-    height: 40px;
-}
-
-.tcButtonsDiv {
-    width: 300px;
+.uc {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
-.editButton,
-.deleteButton {
-    height: 40px;
-    width: 75px;
-}
-
-.tcBottom {
-    display: flex;
-}
-
-.addProject {
-    height: 50px;
-    width: 50px;
-}
-
-.projectContainer {
-    height: 40px;
-}
-
-.projectContainer:hover {
-    background-color: green;
-}
-
-.projectHeader {
-    display: flex;
-    align-items: center;
-    height: inherit;
-    width: inherit;
-}
-
-.projectTitle {
-    size: 20px;
-    margin: 0;
-    width: 100px;
+.lc {
+    display: none;
 }
