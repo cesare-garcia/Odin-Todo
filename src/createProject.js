@@ -132,7 +132,8 @@ const createProject = (projectName) => {
         taskEditButton.addEventListener("click", (e) => {
             console.log("edit");
             // edit project task function
-            // display project Tasks function
+            // display project Tasks function, this must depend on whether the header is home, today, week, or not
+            // will likely need to create a new form element that is attached to each task.
 
         });
     }
@@ -214,6 +215,27 @@ const createProject = (projectName) => {
         newProjects.push(name);
     }
 
+    const deleteProject = (projectName) => {
+        
+        const removeProjectFromArray = (array, nameOfProject) => {
+            return array.filter(function(value) {
+                return value !== nameOfProject;
+            });
+        }
+
+        const removeTaskFromArray = (array, nameOfProject) => {
+            return array.filter(function(value) {
+                return value.assignedProject !== nameOfProject;
+            });
+        };
+
+        let newTaskArray = removeTaskFromArray(projectTasks, projectName);
+        projectTasks = newTaskArray;
+
+        let newProjectArray = removeProjectFromArray(newProjects, projectName);
+        newProjects = newProjectArray;        
+    }
+
     const showProjectTabs = (project) => {
         const display = document.querySelector("#display");
         const projectsList = document.querySelector("#projectsList");
@@ -242,12 +264,12 @@ const createProject = (projectName) => {
                 displaySpecificTasks(tabTitle.innerText);
             });
 
-            // event listener to delete project name
-
-            deleteProjectButton.addEventListener("click", (e) => {
-                console.log("testingDelete")
+            deleteProjectButton.addEventListener("click", (e) => {                
+                deleteProject(tabTitle.innerText);
+                showProjectTabs();
+                loadTasks(project, "Home", display);
+                displayTasks();
             });
-
         });
     };
 
