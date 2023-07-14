@@ -97,12 +97,20 @@ const loadTasks = (project, tabName, display, storage) => {
                 let addedPriority = prioritySelect.value;
                 let addedDate = dateInput.value;
                 let addedNotes = notesTA.value;
-                let task = project.createTask(addedTask, addedPriority, addedDate, addedNotes);
-                project.addProjectTask(task);
-                project.displayTasks();
-                console.log(project);
-                newTaskForm.reset();
-                newTaskForm.style.display = "none";
+                if (tabName !== "Home" && tabName !== "Today" && tabName !== "Week") {
+                    console.log("we're good");
+                    let task = project.createTask(addedTask, addedPriority, addedDate, addedNotes, tabName);
+                    project.addProjectTask(task);
+                    project.displaySpecificTasks(tabName);
+                    newTaskForm.reset();
+                    newTaskForm.style.display = "none";
+                } else {
+                    let task = project.createTask(addedTask, addedPriority, addedDate, addedNotes);
+                    project.addProjectTask(task);
+                    project.displayTasks();
+                    newTaskForm.reset();
+                    newTaskForm.style.display = "none";
+                }
             }
         });
     };
