@@ -122,6 +122,10 @@ main {
     align-items: center;
 }
 
+.checked {
+    text-decoration: line-through;
+}
+
 .lc {
     display: none;
 }
