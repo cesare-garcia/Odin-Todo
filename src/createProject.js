@@ -28,11 +28,16 @@ const createProject = (projectName) => {
         projectTasks.push(newTask);
     };
 
-    const deleteTask = (tName, tPriority, tDate ) => {
+    const deleteTask = (tName, tPriority, tDate, tProject ) => {
         projectTasks.forEach((element) => {
-            if (element.taskName === tName && element.priorityLevel === tPriority && element.dueDate === tDate) {
-                projectTasks.splice(element, 1);
-                console.log(projectTasks);
+            if ( tProject !== undefined) {
+                if (element.taskName === tName && element.priorityLevel === tPriority && element.dueDate === tDate) {
+                    projectTasks.splice(element, 1);
+                }
+            } else {
+                if (element.taskName === tName && element.priorityLevel === tPriority && element.dueDate === tDate && element.assignedProject === tProject) {
+                    projectTasks.splice(element, 1);
+                }
             }
         })
     };
@@ -108,16 +113,20 @@ const createProject = (projectName) => {
             let selectedName = document.querySelector(`.taskName[data-container="${dataContainerIndex}"]`).innerText;
             let selectedPriority = document.querySelector(`.taskPriority[data-container="${dataContainerIndex}"]`).innerText;
             let selectedDate = document.querySelector(`.taskDate[data-container="${dataContainerIndex}"]`).innerText;
-            // might be able to pull the headerTab title and push that in as the projectID
-            deleteTask(selectedName, selectedPriority, selectedDate);
+            let selectedTabName = document.querySelector(".tabHeader>h2").innerText;
             if ( document.querySelector(".tabHeader>h2").innerText === "Home") {
+                deleteTask(selectedName, selectedPriority, selectedDate);
                 displayTasks();
             } else if (document.querySelector(".tabHeader>h2").innerText === "Today") {
+                deleteTask(selectedName, selectedPriority, selectedDate);
                 displayTodaysTasks();
             } else if (document.querySelector(".tabHeader>h2").innerText === "Week") {
+                deleteTask(selectedName, selectedPriority, selectedDate);
                 displayThisWeeksTasks();
+            } else {
+                deleteTask(selectedName, selectedPriority, selectedDate, selectedTabName);
+                displaySpecificTasks(selectedTabName);
             }
-
         });
 
         taskEditButton.addEventListener("click", (e) => {
