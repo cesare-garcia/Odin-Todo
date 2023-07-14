@@ -29,17 +29,25 @@ const createProject = (projectName) => {
     };
 
     const deleteTask = (tName, tPriority, tDate, tProject ) => {
-        projectTasks.forEach((element) => {
-            if ( tProject !== undefined) {
-                if (element.taskName === tName && element.priorityLevel === tPriority && element.dueDate === tDate) {
-                    projectTasks.splice(element, 1);
-                }
-            } else {
-                if (element.taskName === tName && element.priorityLevel === tPriority && element.dueDate === tDate && element.assignedProject === tProject) {
-                    projectTasks.splice(element, 1);
-                }
-            }
-        })
+        if ( tProject !== undefined) {
+            let removeTaskFromArray = (array, nOT, pOT, dOT, prOT) => {
+                return array.filter(function(value) {
+                    return !(value.taskName === nOT && value.priorityLevel === pOT && value.dueDate === dOT && value.assignedProject === prOT) 
+                });
+            };
+            let newArray = removeTaskFromArray(projectTasks, tName, tPriority, tDate, tProject);
+            projectTasks = newArray;
+                
+        } else {
+            let removeTaskFromArray = (array, nOT, pOT, dOT) => {
+                return array.filter(function(value) {
+                    return !(value.taskName === nOT && value.priorityLevel === pOT && value.dueDate === dOT) 
+                });
+            };
+            let newArray = removeTaskFromArray(projectTasks, tName, tPriority, tDate);
+            projectTasks = newArray;
+
+        };
     };
 
     const createTaskContainers = (element, taskCounter, taskList) => {
