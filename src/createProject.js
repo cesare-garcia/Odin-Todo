@@ -108,6 +108,14 @@ const createProject = (projectName) => {
         taskContainer.appendChild(lowerContainer);
         lowerContainer.appendChild(showNotes);
 
+        checkbox.addEventListener("change", (e) => {
+            if (checkbox.checked === true ) {
+                taskContainer.classList.add("checked");
+            } else {
+                taskContainer.classList.remove("checked");
+            }
+        })
+
         expansionButton.addEventListener("click", (e) => {
             if (lowerContainer.style.display == "none") {
                 lowerContainer.style.display = "flex";
