@@ -98,7 +98,6 @@ const loadTasks = (project, tabName, display, storage) => {
                 let addedDate = dateInput.value;
                 let addedNotes = notesTA.value;
                 if (tabName !== "Home" && tabName !== "Today" && tabName !== "Week") {
-                    console.log("we're good");
                     let task = project.createTask(addedTask, addedPriority, addedDate, addedNotes, tabName);
                     project.addProjectTask(task);
                     project.displaySpecificTasks(tabName);
