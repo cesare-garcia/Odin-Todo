@@ -5,25 +5,37 @@ import isWithinInterval from "date-fns/isWithinInterval";
 import getDate from "date-fns/getDate";
 import getYear from "date-fns/getYear";
 import getMonth from "date-fns/getMonth";
+import loadPage from "./loadPage";
+import loadTasks from "./loadTasks";
 
 const createProject = (projectName) => {
     let name = projectName;
     let projectTasks = [];
+    let newProjects = [];
 
-    const createTask = (name, priority, date, notes) => {
+    const createTask = (name, priority, date, notes, projectID) => {
 
-        let status = "INCOMPLETE";
         let taskName = name;
         let priorityLevel = priority;
         let dueDate = date;
         let taskNotes = notes;
+        let assignedProject = projectID;
     
-        return { status, taskName, priorityLevel, dueDate, taskNotes }
+        return { taskName, priorityLevel, dueDate, taskNotes, assignedProject }
     };
 
     const addProjectTask = (newTask) => {
         projectTasks.push(newTask);
-    }
+    };
+
+    const deleteTask = (tName, tPriority, tDate ) => {
+        projectTasks.forEach((element) => {
+            if (element.taskName === tName && element.priorityLevel === tPriority && element.dueDate === tDate) {
+                projectTasks.splice(element, 1);
+                console.log(projectTasks);
+            }
+        })
+    };
 
     const createTaskContainers = (element, taskCounter, taskList) => {
         let taskContainer = document.createElement("div");
@@ -38,9 +50,11 @@ const createProject = (projectName) => {
         let showName = document.createElement("p");
         showName.innerText = `${element.taskName}`;
         showName.setAttribute("data-container", `${taskCounter}`);
+        showName.classList.add("taskName");
         let showPriority = document.createElement("p");
         showPriority.innerText = `${element.priorityLevel}`;
         showPriority.setAttribute("data-container", `${taskCounter}`);
+        showPriority.classList.add("taskPriority");
         if (showPriority.innerText === "Low") {
             showPriority.style.color = "green";
         } else if (showPriority.innerText === "Medium") {
@@ -51,6 +65,7 @@ const createProject = (projectName) => {
         let showDate = document.createElement("p");
         showDate.innerText = `${element.dueDate}`;
         showDate.setAttribute("data-container", `${taskCounter}`);
+        showDate.classList.add("taskDate");
         let expansionButton = document.createElement("button");
         expansionButton.innerText = "ˇ";
         expansionButton.setAttribute("data-container", `${taskCounter}`);
@@ -66,6 +81,7 @@ const createProject = (projectName) => {
         let showNotes = document.createElement("p");
         showNotes.innerText = `Notes: ${element.taskNotes}`;
         showNotes.setAttribute("data-container", `${taskCounter}`);
+        showNotes.classList.add("taskNotes");
 
         taskList.appendChild(taskContainer);
         taskContainer.appendChild(upperContainer);
@@ -88,14 +104,24 @@ const createProject = (projectName) => {
         });
 
         taskDeleteButton.addEventListener("click", (e) => {
-            console.log("works");
-            // delete Project Task Function
-            // display Project Tasks Function
+            let dataContainerIndex = e.target.getAttribute("data-container");
+            let selectedName = document.querySelector(`.taskName[data-container="${dataContainerIndex}"]`).innerText;
+            let selectedPriority = document.querySelector(`.taskPriority[data-container="${dataContainerIndex}"]`).innerText;
+            let selectedDate = document.querySelector(`.taskDate[data-container="${dataContainerIndex}"]`).innerText;
+            // might be able to pull the headerTab title and push that in as the projectID
+            deleteTask(selectedName, selectedPriority, selectedDate);
+            if ( document.querySelector(".tabHeader>h2").innerText === "Home") {
+                displayTasks();
+            } else if (document.querySelector(".tabHeader>h2").innerText === "Today") {
+                displayTodaysTasks();
+            } else if (document.querySelector(".tabHeader>h2").innerText === "Week") {
+                displayThisWeeksTasks();
+            }
 
         });
 
         taskEditButton.addEventListener("click", (e) => {
-            console.log("works");
+            console.log("edit");
             // edit project task function
             // display project Tasks function
 
@@ -161,27 +187,66 @@ const createProject = (projectName) => {
         });
     }
 
-    const showProjectTabs = () => {
+    const displaySpecificTasks = (tabName) => {
+        const taskList = document.querySelector(".taskList");
+        taskList.innerHTML = "";
+        let taskCounter = 0;
+        projectTasks.forEach((element) => {
+            
+            if ( element.assignedProject === tabName ) {
+                createTaskContainers(element, taskCounter, taskList);
+                taskCounter += 1;    
+            }
+        });
+
+    }
+
+    const addNewProject = (name) => {
+        newProjects.push(name);
+    }
+
+    const showProjectTabs = (project) => {
+        const display = document.querySelector("#display");
         const projectsList = document.querySelector("#projectsList");
         projectsList.innerHTML = "";
         // code that pulls the project names from storage
+        let projectCounter = 0;
 
-        // .forEach((element) => {
-        //     let newProjectTab = document.createElement("div");
-        //     let deleteProjectButton = document.createElement("button");
-        //     deleteProjectButton.innerText = "x";
-        //     newProjectTab.appendChild(deleteProjectButton);
-        //     projectsList.appendChild(newProjectTab);
-        
-                
-        // });
+        newProjects.forEach((element) => {
+            let newProjectTab = document.createElement("div");
+            newProjectTab.classList.add("projectTab");
+            newProjectTab.setAttribute("data-projectTab", `${projectCounter}`);
+            let tabTitle = document.createElement("div");
+            tabTitle.classList.add("tabTitle");
+            tabTitle.innerText = element;
+            let deleteProjectButton = document.createElement("button");
+            deleteProjectButton.classList.add("dpTabButton");
+            deleteProjectButton.setAttribute("data-projectTab", `${projectCounter}`);
+            deleteProjectButton.innerText = "x";
+            newProjectTab.appendChild(tabTitle);
+            newProjectTab.appendChild(deleteProjectButton);
+            projectsList.appendChild(newProjectTab);
+            projectCounter += 1;
+
+            tabTitle.addEventListener("click", (e) => {
+                loadTasks(project, tabTitle.innerText, display);
+                displaySpecificTasks(tabTitle.innerText);
+            });
+
+            // event listener to delete project name
+
+            deleteProjectButton.addEventListener("click", (e) => {
+                console.log("testingDelete")
+            });
+
+        });
     };
 
 
     // come back to make sure using const won't mess up the project functions
     // function that builds a new div to display in projects sidebar container
 
-    return { name, projectTasks, createTask, addProjectTask, displayTasks, displayTodaysTasks, displayThisWeeksTasks };
+    return { name, projectTasks, createTask, addProjectTask, displayTasks, displayTodaysTasks, displayThisWeeksTasks, addNewProject, showProjectTabs, displaySpecificTasks };
 
 };
 
