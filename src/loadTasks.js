@@ -88,6 +88,7 @@ const loadTasks = (project, tabName, display, storage) => {
     
         addTaskButton.addEventListener("click", (e) => {
             newTaskForm.style.display = "grid";
+            addTaskButton.disabled = true;
         })
 
         submitTaskButton.addEventListener("click", (e) => {
@@ -111,6 +112,7 @@ const loadTasks = (project, tabName, display, storage) => {
                     newTaskForm.style.display = "none";
                 }
             }
+            addTaskButton.disabled = false;
         });
     };
 
