@@ -126,6 +126,16 @@ main {
     text-decoration: line-through;
 }
 
-.lc {
+.hide {
     display: none;
+}
+
+.editFormDiv {
+    display: none;
+    padding: 7px;
+}
+
+#editForm {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
 }
