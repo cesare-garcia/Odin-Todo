@@ -50,6 +50,10 @@ const createProject = (projectName) => {
         };
     };
 
+    const editTask = (editNameValue, editPriorityValue, editDateValue, editNotesValue, assignedProject) => {
+        console.log(`${editNameValue} ${editPriorityValue} ${editDateValue} ${editNotesValue} ${assignedProject}`);
+    };
+
     const createTaskContainers = (element, taskCounter, taskList) => {
         let taskContainer = document.createElement("div");
         taskContainer.classList.add("taskContainer");
@@ -113,6 +117,7 @@ const createProject = (projectName) => {
         editNameInput.setAttribute("data-edit", `${taskCounter}`);
         editNameInput.setAttribute("id", "editNameInput");
         editNameInput.setAttribute("name", "editNameInput");
+        editNameInput.required = true;
         let editPriorityDiv = document.createElement("div");
         editPriorityDiv.classList.add("editPriorityDiv");
         editPriorityDiv.setAttribute("data-edit", `${taskCounter}`);
@@ -140,6 +145,7 @@ const createProject = (projectName) => {
         editDateInput.setAttribute("type", "date");
         editDateInput.setAttribute("id", "editDateInput");
         editDateInput.setAttribute("name", "editDateInput");
+        editDateInput.required = true;
         let editNotesDiv = document.createElement("div");
         editNotesDiv.classList.add("editNotesDiv");
         editNotesDiv.setAttribute("data-edit", `${taskCounter}`);
@@ -228,8 +234,39 @@ const createProject = (projectName) => {
         });
 
         editSubmissionButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            // edit task function
+            if (editNameInput.validity.valid && editDateInput.validity.valid) {
+                let editTaskIndex = e.target.getAttribute("data-edit");
+                let editnav = document.querySelector(`#editNameInput[data-edit="${editTaskIndex}"]`).value;
+                let editpri = document.querySelector(`#editPrioritySelect[data-edit="${editTaskIndex}"]`).value;
+                let editdv = document.querySelector(`#editDateInput[data-edit="${editTaskIndex}"]`).value;
+                let editnov = document.querySelector(`#editNotesTA[data-edit="${editTaskIndex}"]`).value;
+                let pageHeader = document.querySelector(`.tabHeader>h2`).innerText
+    
+                if (pageHeader === "Home") {
+                    editTask(editnav, editpri, editdv, editnov);
+                    editForm.reset();
+                    editFormDiv.style.display = "none";
+                    displayTasks();
+        
+                } else if (pageHeader === "Today") {
+                    editTask(editnav, editpri, editdv, editnov);
+                    editForm.reset();
+                    editFormDiv.style.display = "none";
+                    displayTodaysTasks();
+        
+                } else if (pageHeader === "Week") {
+                    editTask(editnav, editpri, editdv, editnov);
+                    editForm.reset();
+                    editFormDiv.style.display = "none";
+                    displayThisWeeksTasks();
+        
+                } else {
+                    editTask(editnav, editpri, editdv, editnov, pageHeader)
+                    editForm.reset();
+                    editFormDiv.style.display = "none";
+                    displaySpecificTasks(pageHeader);
+                }
+            }
         });
     }
 
