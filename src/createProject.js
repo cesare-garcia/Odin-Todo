@@ -91,10 +91,69 @@ const createProject = (projectName) => {
         let lowerContainer = document.createElement("div");
         lowerContainer.classList.add("lc");
         lowerContainer.setAttribute("data-container", `${taskCounter}`);
+        lowerContainer.classList.add("hide");
         let showNotes = document.createElement("p");
         showNotes.innerText = `Notes: ${element.taskNotes}`;
         showNotes.setAttribute("data-container", `${taskCounter}`);
         showNotes.classList.add("taskNotes");
+
+        let editFormDiv = document.createElement("div");
+        editFormDiv.classList.add("editFormDiv");
+        editFormDiv.setAttribute("data-edit", `${taskCounter}`);
+        let editForm = document.createElement("form");
+        editForm.setAttribute("id", "editForm");
+        editForm.setAttribute("data-edit", `${taskCounter}`);
+        let editNameDiv = document.createElement("div");
+        editNameDiv.classList.add("editNameDiv");
+        editNameDiv.setAttribute("data-edit", `${taskCounter}`);
+        let editNameLabel = document.createElement("label");
+        editNameLabel.setAttribute("for", "editNameInput");
+        editNameLabel.innerText = "Name: ";
+        let editNameInput = document.createElement("input");
+        editNameInput.setAttribute("data-edit", `${taskCounter}`);
+        editNameInput.setAttribute("id", "editNameInput");
+        editNameInput.setAttribute("name", "editNameInput");
+        let editPriorityDiv = document.createElement("div");
+        editPriorityDiv.classList.add("editPriorityDiv");
+        editPriorityDiv.setAttribute("data-edit", `${taskCounter}`);
+        let editPriorityLabel = document.createElement("label");
+        editPriorityLabel.setAttribute("for", "editPrioritySelect");
+        editPriorityLabel.innerText = "Priority: ";
+        let editPrioritySelect = document.createElement("select");
+        editPrioritySelect.setAttribute("data-edit", `${taskCounter}`);
+        editPrioritySelect.setAttribute("id", "editPrioritySelect");
+        editPrioritySelect.setAttribute("name", "editPrioritySelect");
+        let editPriorityOption1 = document.createElement("option");
+        editPriorityOption1.innerText = "Low";
+        let editPriorityOption2 = document.createElement("option");
+        editPriorityOption2.innerText = "Medium";
+        let editPriorityOption3 = document.createElement("option");
+        editPriorityOption3.innerText = "High";
+        let editDateDiv = document.createElement("div");
+        editDateDiv.classList.add("editDateDiv");
+        editDateDiv.setAttribute("data-edit", `${taskCounter}`);
+        let editDateLabel = document.createElement("label");
+        editDateLabel.setAttribute("for", "editDateInput");
+        editDateLabel.innerText = "Due Date: ";
+        let editDateInput = document.createElement("input");
+        editDateInput.setAttribute("data-edit", `${taskCounter}`);
+        editDateInput.setAttribute("type", "date");
+        editDateInput.setAttribute("id", "editDateInput");
+        editDateInput.setAttribute("name", "editDateInput");
+        let editNotesDiv = document.createElement("div");
+        editNotesDiv.classList.add("editNotesDiv");
+        editNotesDiv.setAttribute("data-edit", `${taskCounter}`);
+        let editNotesLabel = document.createElement("label");
+        editNotesLabel.setAttribute("for", "editNotesTA");
+        editNotesLabel.innerText = "Notes: ";
+        let editNotesTA = document.createElement("textarea");
+        editNotesTA.setAttribute("id", "editNotesTA");
+        editNotesTA.setAttribute("name", "editNotesTA");
+        editNotesTA.setAttribute("data-edit", `${taskCounter}`);
+        let editSubmissionButton = document.createElement("button");
+        editSubmissionButton.classList.add("esButton");
+        editSubmissionButton.setAttribute("data-edit", `${taskCounter}`);
+        editSubmissionButton.innerText = "Submit Edits";
 
         taskList.appendChild(taskContainer);
         taskContainer.appendChild(upperContainer);
@@ -107,6 +166,24 @@ const createProject = (projectName) => {
         upperContainer.appendChild(taskEditButton);
         taskContainer.appendChild(lowerContainer);
         lowerContainer.appendChild(showNotes);
+        taskContainer.appendChild(editFormDiv);
+        editFormDiv.appendChild(editForm);
+        editForm.appendChild(editNameDiv);
+        editNameDiv.appendChild(editNameLabel);
+        editNameDiv.appendChild(editNameInput);
+        editForm.appendChild(editPriorityDiv);
+        editPriorityDiv.appendChild(editPriorityLabel);
+        editPriorityDiv.appendChild(editPrioritySelect);
+        editPrioritySelect.appendChild(editPriorityOption1);
+        editPrioritySelect.appendChild(editPriorityOption2);
+        editPrioritySelect.appendChild(editPriorityOption3);
+        editForm.appendChild(editDateDiv);
+        editDateDiv.appendChild(editDateLabel);
+        editDateDiv.appendChild(editDateInput);
+        editForm.appendChild(editNotesDiv);
+        editNotesDiv.appendChild(editNotesLabel);
+        editNotesDiv.appendChild(editNotesTA);
+        editForm.appendChild(editSubmissionButton);
 
         checkbox.addEventListener("change", (e) => {
             if (checkbox.checked === true ) {
@@ -117,10 +194,10 @@ const createProject = (projectName) => {
         })
 
         expansionButton.addEventListener("click", (e) => {
-            if (lowerContainer.style.display == "none") {
-                lowerContainer.style.display = "flex";
+            if (lowerContainer.classList.contains("hide")) {
+                lowerContainer.classList.remove("hide");
             } else {
-                lowerContainer.style.display = "none";
+                lowerContainer.classList.add("hide");
             }
         });
 
@@ -146,11 +223,13 @@ const createProject = (projectName) => {
         });
 
         taskEditButton.addEventListener("click", (e) => {
-            console.log("edit");
-            // edit project task function
-            // display project Tasks function, this must depend on whether the header is home, today, week, or not
-            // will likely need to create a new form element that is attached to each task.
+            editFormDiv.style.display = "block";
+            taskEditButton.disabled = true;
+        });
 
+        editSubmissionButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            // edit task function
         });
     }
 
