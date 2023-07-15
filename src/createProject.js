@@ -46,12 +46,29 @@ const createProject = (projectName) => {
             };
             let newArray = removeTaskFromArray(projectTasks, tName, tPriority, tDate);
             projectTasks = newArray;
-
         };
     };
 
-    const editTask = (editNameValue, editPriorityValue, editDateValue, editNotesValue, assignedProject) => {
-        console.log(`${editNameValue} ${editPriorityValue} ${editDateValue} ${editNotesValue} ${assignedProject}`);
+    const editTask = (ornamevalue, orprivalue, ordatevalue, editNameValue, editPriorityValue, editDateValue, editNotesValue, assignedProject) => {
+        if (assignedProject === undefined) {
+            projectTasks.forEach((element) => {
+                if (element.taskName === ornamevalue && element.priorityLevel === orprivalue && element.dueDate === ordatevalue) {
+                    element.taskName = editNameValue;
+                    element.priorityLevel = editPriorityValue;
+                    element.dueDate = editDateValue;
+                    element.taskNotes = editNotesValue;
+                }
+            });
+        } else {
+            projectTasks.forEach((element) => {
+                if (element.taskName === ornamevalue && element.priorityLevel === orprivalue && element.dueDate === ordatevalue && element.assignedProject === assignedProject) {
+                    element.taskName = editNameValue;
+                    element.priorityLevel = editPriorityValue;
+                    element.dueDate = editDateValue;
+                    element.taskNotes = editNotesValue;
+                }
+            });
+        };
     };
 
     const createTaskContainers = (element, taskCounter, taskList) => {
@@ -96,10 +113,12 @@ const createProject = (projectName) => {
         lowerContainer.classList.add("lc");
         lowerContainer.setAttribute("data-container", `${taskCounter}`);
         lowerContainer.classList.add("hide");
-        let showNotes = document.createElement("p");
-        showNotes.innerText = `Notes: ${element.taskNotes}`;
-        showNotes.setAttribute("data-container", `${taskCounter}`);
-        showNotes.classList.add("taskNotes");
+        let showNotes1 = document.createElement("p");
+        showNotes1.innerText = `Notes: `;
+        let showNotes2 = document.createElement("p");
+        showNotes2.innerText = `${element.taskNotes}`;
+        showNotes2.classList.add("taskNotes");
+        showNotes2.setAttribute("data-container", `${taskCounter}`);
 
         let editFormDiv = document.createElement("div");
         editFormDiv.classList.add("editFormDiv");
@@ -171,7 +190,8 @@ const createProject = (projectName) => {
         upperContainer.appendChild(taskDeleteButton);
         upperContainer.appendChild(taskEditButton);
         taskContainer.appendChild(lowerContainer);
-        lowerContainer.appendChild(showNotes);
+        lowerContainer.appendChild(showNotes1);
+        lowerContainer.appendChild(showNotes2);
         taskContainer.appendChild(editFormDiv);
         editFormDiv.appendChild(editForm);
         editForm.appendChild(editNameDiv);
@@ -243,25 +263,25 @@ const createProject = (projectName) => {
                 let pageHeader = document.querySelector(`.tabHeader>h2`).innerText
     
                 if (pageHeader === "Home") {
-                    editTask(editnav, editpri, editdv, editnov);
+                    editTask(showName.innerText, showPriority.innerText, showDate.innerText, editnav, editpri, editdv, editnov);
                     editForm.reset();
                     editFormDiv.style.display = "none";
                     displayTasks();
         
                 } else if (pageHeader === "Today") {
-                    editTask(editnav, editpri, editdv, editnov);
+                    editTask(showName.innerText, showPriority.innerText, showDate.innerText, editnav, editpri, editdv, editnov);
                     editForm.reset();
                     editFormDiv.style.display = "none";
                     displayTodaysTasks();
         
                 } else if (pageHeader === "Week") {
-                    editTask(editnav, editpri, editdv, editnov);
+                    editTask(showName.innerText, showPriority.innerText, showDate.innerText, editnav, editpri, editdv, editnov);
                     editForm.reset();
                     editFormDiv.style.display = "none";
                     displayThisWeeksTasks();
         
                 } else {
-                    editTask(editnav, editpri, editdv, editnov, pageHeader)
+                    editTask(showName.innerText, showPriority.innerText, showDate.innerText, editnav, editpri, editdv, editnov, pageHeader);
                     editForm.reset();
                     editFormDiv.style.display = "none";
                     displaySpecificTasks(pageHeader);
@@ -404,10 +424,6 @@ const createProject = (projectName) => {
             });
         });
     };
-
-
-    // come back to make sure using const won't mess up the project functions
-    // function that builds a new div to display in projects sidebar container
 
     return { name, projectTasks, createTask, addProjectTask, displayTasks, displayTodaysTasks, displayThisWeeksTasks, addNewProject, showProjectTabs, displaySpecificTasks };
 
